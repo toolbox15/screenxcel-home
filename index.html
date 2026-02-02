@@ -58,8 +58,9 @@
 
         .phone-mockup {
             box-shadow: 0 50px 100px -20px rgba(0, 0, 0, 0.5);
-            border: 12px solid #262626; /* Slightly thicker frame for premium look */
+            border: 12px solid #262626; 
             background: #262626;
+            border-radius: 3rem;
         }
 
         /* Responsive Display Logic */
@@ -136,26 +137,26 @@
             <div class="order-2 lg:order-1">
                 <!-- Phone Wrapper -->
                 <div class="relative mx-auto w-full max-w-[340px] h-[680px] bg-black rounded-[3.5rem] phone-mockup overflow-hidden group">
-                    <!-- The Notch -->
-                    <div class="absolute top-0 w-full h-10 flex justify-center items-end pb-3 z-20 pointer-events-none">
-                        <div class="w-28 h-6 bg-[#262626] rounded-full"></div>
+                    <!-- Updated Top Bar (No Notch Overlap) -->
+                    <div class="absolute top-0 w-full h-6 bg-[#1a1a1a] flex justify-center items-center z-20">
+                         <div class="w-12 h-1 bg-white/10 rounded-full"></div>
                     </div>
                     
                     <!-- Desktop Hover Overlay -->
                     <div class="desktop-only absolute inset-0 bg-black/85 opacity-0 group-hover:opacity-100 transition-opacity z-30 flex flex-col items-center justify-center text-center p-6">
                         <div class="w-32 h-32 bg-white p-2 rounded-xl mb-4">
-                            <!-- Points to live site so they can try it on mobile -->
                             <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.screenxcel.com" alt="QR Code" class="w-full h-full">
                         </div>
                         <p class="text-white text-xs font-bold uppercase tracking-widest">Scan to play on your phone</p>
                     </div>
 
                     <!-- Inner Frame Content -->
-                    <div class="w-full h-full bg-neutral-900 pt-16"> <!-- Increased pt-16 to clear the notch -->
+                    <div class="w-full h-full bg-neutral-900 pt-6"> <!-- pt-6 provides just enough clearance for the top bar -->
                         <iframe 
                             src="https://toolbox15.github.io/seahawks-scratch-game/" 
                             class="w-full h-full" 
                             frameborder="0"
+                            style="border: none;"
                             title="Interactive Demo"
                         ></iframe>
                     </div>
@@ -206,7 +207,7 @@
     <footer class="py-16 text-center text-gray-600 border-t border-white/5">
         <div class="flex flex-col items-center gap-6">
             <div class="flex gap-6">
-                 <!-- Instagram DM Link -->
+                 <!-- Instagram DM Link in Footer -->
                  <a href="https://ig.me/m/screenxcel" target="_blank" class="text-gray-400 hover:text-cyan-400 transition">
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
                 </a>
