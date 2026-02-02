@@ -46,14 +46,14 @@
 
         @keyframes carouselFade {
             0%, 15% { opacity: 0; transform: scale(1.1); }
-            25%, 40% { opacity: 0.35; transform: scale(1); }
+            25%, 40% { opacity: 0.45; transform: scale(1); } /* Increased opacity for brightness */
             50%, 100% { opacity: 0; transform: scale(1.1); }
         }
 
         .hero-overlay {
             position: absolute;
             inset: 0;
-            background: linear-gradient(to bottom, rgba(5,5,5,0.7) 0%, rgba(5,5,5,0.95) 100%);
+            background: linear-gradient(to bottom, rgba(5,5,5,0.6) 0%, rgba(5,5,5,0.9) 100%); /* Lightened overlay slightly */
             z-index: -5;
         }
 
@@ -62,13 +62,14 @@
             border: 10px solid #262626;
         }
 
+        /* Responsive Display Logic */
         @media (max-width: 768px) {
-            .desktop-only { display: none; }
+            .desktop-only { display: none !important; }
             .mobile-only { display: block; }
         }
         @media (min-width: 769px) {
             .mobile-only { display: none; }
-            .desktop-only { display: block; }
+            .desktop-only { display: flex; }
         }
     </style>
 </head>
@@ -133,9 +134,9 @@
                         <div class="w-24 h-5 bg-[#262626] rounded-full"></div>
                     </div>
                     
+                    <!-- QR Overlay - strictly hidden on mobile devices via desktop-only class -->
                     <div class="desktop-only absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-opacity z-10 flex flex-col items-center justify-center text-center p-6">
                         <div class="w-32 h-32 bg-white p-2 rounded-xl mb-4">
-                            <!-- Updated QR code to point to your Seahawks scratch game directly for convenience -->
                             <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://toolbox15.github.io/seahawks-scratch-game/" alt="QR Code" class="w-full h-full">
                         </div>
                         <p class="text-white text-xs font-bold uppercase tracking-widest">Scan to play on your phone</p>
