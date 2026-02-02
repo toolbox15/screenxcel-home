@@ -17,6 +17,9 @@
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
+        .text-glow {
+            text-shadow: 0 0 15px rgba(34, 211, 238, 0.5);
+        }
         
         /* Background Carousel */
         .carousel-container {
@@ -35,6 +38,7 @@
             background-repeat: no-repeat;
         }
 
+        /* Ensure these files are uploaded to your 'screenxcel-home' repo */
         .slide-1 { background-image: url('restaurant.jpg'); }
         .slide-2 { background-image: url('bar.jpg'); }
         .slide-3 { background-image: url('office.jpg'); }
@@ -45,14 +49,14 @@
 
         @keyframes carouselFade {
             0%, 15% { opacity: 0; transform: scale(1.1); }
-            25%, 40% { opacity: 0.45; transform: scale(1); }
+            25%, 40% { opacity: 0.45; transform: scale(1); } /* Brighter images (0.45) */
             50%, 100% { opacity: 0; transform: scale(1.1); }
         }
 
         .hero-overlay {
             position: absolute;
             inset: 0;
-            background: linear-gradient(to bottom, rgba(5,5,5,0.6) 0%, rgba(5,5,5,0.9) 100%);
+            background: linear-gradient(to bottom, rgba(5,5,5,0.5) 0%, rgba(5,5,5,0.9) 100%); /* Slightly lighter overlay */
             z-index: -5;
         }
 
@@ -137,22 +141,23 @@
             <div class="order-2 lg:order-1">
                 <!-- Phone Wrapper -->
                 <div class="relative mx-auto w-full max-w-[340px] h-[680px] bg-black rounded-[3.5rem] phone-mockup overflow-hidden group">
-                    <!-- Updated Top Bar (No Notch Overlap) -->
+                    <!-- Top Bar with No Overlap -->
                     <div class="absolute top-0 w-full h-6 bg-[#1a1a1a] flex justify-center items-center z-20">
                          <div class="w-12 h-1 bg-white/10 rounded-full"></div>
                     </div>
                     
-                    <!-- Desktop Hover Overlay -->
+                    <!-- Desktop Hover Overlay (QR Code) -->
                     <div class="desktop-only absolute inset-0 bg-black/85 opacity-0 group-hover:opacity-100 transition-opacity z-30 flex flex-col items-center justify-center text-center p-6">
                         <div class="w-32 h-32 bg-white p-2 rounded-xl mb-4">
+                            <!-- Points to live site so they can try it on mobile -->
                             <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.screenxcel.com" alt="QR Code" class="w-full h-full">
                         </div>
                         <p class="text-white text-xs font-bold uppercase tracking-widest">Scan to play on your phone</p>
                     </div>
 
                     <!-- Inner Frame Content -->
-                    <!-- Adjusted pt to pt-[21px] to move the header text UP by 3 pixels from the previous 24px (pt-6) -->
-                    <div class="w-full h-full bg-neutral-900 pt-[21px]">
+                    <!-- pt-[15px] moves the header text UP by 3 pixels from the previous [18px] -->
+                    <div class="w-full h-full bg-neutral-900 pt-[15px]">
                         <iframe 
                             src="https://toolbox15.github.io/seahawks-scratch-game/" 
                             class="w-full h-full" 
