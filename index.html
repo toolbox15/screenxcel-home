@@ -43,14 +43,23 @@
             background-size: cover;
             background-position: center;
         }
-        /* Linking background.png to the carousel */
-        .carousel-slide:nth-child(1) { animation-delay: 0s; background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('background.png'); }
-        .carousel-slide:nth-child(2) { animation-delay: 5s; background-image: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('background.png'); background-position: top; }
-        .carousel-slide:nth-child(3) { animation-delay: 10s; background-image: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)), url('background.png'); background-position: bottom; }
+        /* Linking your GitHub images to the carousel */
+        .carousel-slide:nth-child(1) { 
+            animation-delay: 0s; 
+            background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('restaurant.jpg'); 
+        }
+        .carousel-slide:nth-child(2) { 
+            animation-delay: 5s; 
+            background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('bar.jpg'); 
+        }
+        .carousel-slide:nth-child(3) { 
+            animation-delay: 10s; 
+            background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('office.jpg'); 
+        }
 
         @keyframes carouselFade {
             0%, 20% { opacity: 0; transform: scale(1.05); }
-            33%, 53% { opacity: 0.3; transform: scale(1); }
+            33%, 53% { opacity: 0.4; transform: scale(1); }
             66%, 100% { opacity: 0; transform: scale(1.05); }
         }
 
@@ -74,11 +83,11 @@
 <body class="selection:bg-cyan-500/30 selection:text-cyan-200">
 
     <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-50 glass border-b border-white/5 py-6">
+    <nav class="fixed top-0 w-full z-50 glass border-b border-white/5 py-8">
         <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
             <div class="flex items-center gap-2">
-                <!-- Large Agency Logo -->
-                <img src="logo.png" alt="ScreenXcel" class="h-20 w-auto transition-all hover:scale-105">
+                <!-- Enlarged Agency Logo -->
+                <img src="logo.png" alt="ScreenXcel" class="h-32 w-auto transition-all hover:scale-105">
             </div>
             <div class="hidden md:flex gap-10 text-sm font-medium text-gray-400 uppercase tracking-widest font-black text-[10px]">
                 <a href="#solutions" class="hover:text-cyan-400 transition">Solutions</a>
@@ -90,8 +99,8 @@
     </nav>
 
     <!-- Hero Section -->
-    <header class="relative pt-48 pb-32 px-6 overflow-hidden min-h-screen flex items-center">
-        <!-- Background Carousel linked to background.png -->
+    <header class="relative pt-64 pb-32 px-6 overflow-hidden min-h-screen flex items-center">
+        <!-- Background Carousel linked to restaurant.jpg, bar.jpg, office.jpg -->
         <div class="carousel-container">
             <div class="carousel-slide"></div>
             <div class="carousel-slide"></div>
@@ -136,20 +145,20 @@
                         <div class="w-28 h-6 bg-[#262626] rounded-full"></div>
                     </div>
                     
-                    <!-- Desktop Overlay with Correct QR Link -->
+                    <!-- Desktop Overlay with your local qrcode.png -->
                     <div class="desktop-only absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity z-30 flex flex-col items-center justify-center text-center p-8 backdrop-blur-sm">
-                        <div class="w-40 h-40 bg-white p-3 rounded-2xl mb-6 shadow-2xl">
-                            <!-- Correct QR Code pointing to seahawks_index.html -->
-                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://toolbox15.github.io/seahawks-scratch-game/seahawks_index.html" alt="QR Code" class="w-full h-full">
+                        <div class="w-44 h-44 bg-white p-3 rounded-2xl mb-6 shadow-2xl">
+                            <!-- Linked to your qrcode.png -->
+                            <img src="qrcode.png" alt="QR Code" class="w-full h-full object-contain">
                         </div>
                         <p class="text-white text-[11px] font-black uppercase tracking-[0.2em]">Scan to play on your mobile device</p>
-                        <p class="text-cyan-400 text-[10px] mt-2 font-medium">Real-time data capture active</p>
+                        <p class="text-cyan-400 text-[10px] mt-2 font-medium italic">Powered by ScreenXcel</p>
                     </div>
 
-                    <!-- The Iframe linked to seahawks_index.html -->
+                    <!-- The Iframe linked to your Seahawks GitHub page -->
                     <div class="w-full h-full bg-neutral-950 pt-10">
                         <iframe 
-                            src="seahawks_index.html" 
+                            src="https://toolbox15.github.io/seahawks-scratch-game/" 
                             class="w-full h-full" 
                             frameborder="0"
                             title="Interactive Experience"
@@ -159,7 +168,7 @@
                 
                 <!-- Mobile Only Launch Button -->
                 <div class="mobile-only mt-10 text-center">
-                    <a href="seahawks_index.html" class="inline-block bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 px-8 py-4 rounded-2xl font-black text-sm uppercase tracking-widest active:scale-95 transition-transform">
+                    <a href="https://toolbox15.github.io/seahawks-scratch-game/" class="inline-block bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 px-8 py-4 rounded-2xl font-black text-sm uppercase tracking-widest active:scale-95 transition-transform">
                         Launch Full Screen Experience
                     </a>
                 </div>
