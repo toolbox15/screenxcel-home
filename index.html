@@ -1,224 +1,127 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ScreenXcel | Digital Signage & Interactive Architecture</title>
+    <title>ScreenXcel | Digital Architecture & Interactive Experiences</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --midnight: #002244;
+            --neon: #69be28;
+        }
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #050505;
-            color: #e5e7eb;
+            background-color: var(--midnight);
+            color: white;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            scroll-behavior: smooth;
         }
-        .glass {
-            background: rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-        .text-glow {
-            text-shadow: 0 0 15px rgba(34, 211, 238, 0.5);
-        }
+        .text-neon { color: var(--neon); }
+        .bg-neon { background-color: var(--neon); }
         
-        /* Background Carousel */
-        .carousel-container {
-            position: absolute;
-            inset: 0;
-            z-index: -10;
-            overflow: hidden;
-        }
-        .carousel-slide {
-            position: absolute;
-            inset: 0;
-            opacity: 0;
-            animation: carouselFade 18s infinite;
+        .hero-gradient {
+            background: linear-gradient(rgba(0, 34, 68, 0.85), rgba(0, 34, 68, 0.95)), url('background.png');
             background-size: cover;
             background-position: center;
-            background-repeat: no-repeat;
         }
-
-        /* Ensure these files are uploaded to your 'screenxcel-home' repo */
-        .slide-1 { background-image: url('restaurant.jpg'); }
-        .slide-2 { background-image: url('bar.jpg'); }
-        .slide-3 { background-image: url('office.jpg'); }
-
-        .carousel-slide:nth-child(1) { animation-delay: 0s; }
-        .carousel-slide:nth-child(2) { animation-delay: 6s; }
-        .carousel-slide:nth-child(3) { animation-delay: 12s; }
-
-        @keyframes carouselFade {
-            0%, 15% { opacity: 0; transform: scale(1.1); }
-            25%, 40% { opacity: 0.45; transform: scale(1); } /* Brighter images (0.45) */
-            50%, 100% { opacity: 0; transform: scale(1.1); }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(105, 190, 40, 0.1);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
         }
-
-        .hero-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to bottom, rgba(5,5,5,0.5) 0%, rgba(5,5,5,0.9) 100%); /* Slightly lighter overlay */
-            z-index: -5;
-        }
-
-        .phone-mockup {
-            box-shadow: 0 50px 100px -20px rgba(0, 0, 0, 0.5);
-            border: 12px solid #262626; 
-            background: #262626;
-            border-radius: 3rem;
-        }
-
-        /* Responsive Display Logic */
-        @media (max-width: 768px) {
-            .desktop-only { display: none !important; }
-            .mobile-only { display: block; }
-        }
-        @media (min-width: 769px) {
-            .mobile-only { display: none; }
-            .desktop-only { display: flex; }
+        .glass-card:hover {
+            border-color: var(--neon);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
     </style>
 </head>
-<body class="selection:bg-cyan-500/30 selection:text-cyan-200">
+<body>
 
-    <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-50 glass border-b border-white/5 py-4">
-        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
-            <div class="flex items-center gap-2">
-                <div class="w-8 h-8 bg-cyan-500 rounded-sm flex items-center justify-center font-black text-black text-xl italic">S</div>
-                <span class="text-xl font-bold tracking-tighter uppercase italic text-white">ScreenXcel</span>
+    <!-- NAVIGATION -->
+    <nav class="fixed w-full z-50 bg-[#002244]/80 backdrop-blur-md border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <!-- UPDATED LOGO PNG -->
+            <img src="logo.png" alt="ScreenXcel Logo" class="h-10 w-auto">
+            
+            <div class="hidden md:flex space-x-8 text-[10px] font-black uppercase tracking-[0.2em]">
+                <a href="#services" class="hover:text-neon transition">Services</a>
+                <a href="#portfolio" class="hover:text-neon transition">Architecture</a>
+                <a href="https://ig.me/m/screenxcel" class="text-neon border border-neon px-4 py-2 rounded-full hover:bg-neon hover:text-midnight transition">Contact</a>
             </div>
-            <div class="hidden md:flex gap-8 text-sm font-medium text-gray-400 items-center">
-                <a href="#solutions" class="hover:text-cyan-400 transition">Solutions</a>
-                <a href="#lab" class="hover:text-cyan-400 transition">Interactive Lab</a>
-                <a href="#brand" class="hover:text-cyan-400 transition">Custom Design</a>
-                <!-- Instagram DM Link -->
-                <a href="https://ig.me/m/screenxcel" target="_blank" class="text-gray-400 hover:text-cyan-400 transition flex items-center gap-1">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                    <span class="text-xs uppercase font-bold tracking-tighter">DM US</span>
-                </a>
-            </div>
-            <a href="#contact" class="bg-white text-black px-5 py-2 rounded-full text-xs font-bold uppercase hover:bg-cyan-400 transition">Request Audit</a>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <header class="relative pt-48 pb-32 px-6 overflow-hidden min-h-[95vh] flex items-center">
-        <div class="carousel-container">
-            <div class="carousel-slide slide-1"></div>
-            <div class="carousel-slide slide-2"></div>
-            <div class="carousel-slide slide-3"></div>
-        </div>
-        
-        <div class="hero-overlay"></div>
-        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-cyan-500/5 blur-[160px] rounded-full"></div>
-        
-        <div class="max-w-7xl mx-auto text-center relative z-10">
-            <div class="inline-block px-3 py-1 glass rounded-full text-[10px] font-bold tracking-widest text-cyan-400 uppercase mb-6">
-                Digital Architecture for the Modern Venue
-            </div>
-            <h1 class="text-6xl md:text-8xl lg:text-9xl font-extrabold tracking-tight mb-8 leading-[1.1] text-white">
-                Own the <span class="text-white">Screen.</span> <br>
-                Rule the <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Venue.</span>
+    <!-- HERO SECTION -->
+    <section class="relative min-h-screen flex items-center justify-center hero-gradient px-6 pt-20">
+        <div class="max-w-5xl text-center">
+            <h1 class="text-5xl md:text-8xl font-black italic uppercase tracking-tighter leading-none mb-6">
+                Digital <span class="text-neon">Architecture</span>
             </h1>
-            <p class="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto mb-12 leading-relaxed">
-                High-performance digital signage and interactive scratch-offs designed for 
-                <span class="text-white font-semibold text-glow">Restaurants, Bars, and Office Buildings.</span> 
+            <p class="text-lg md:text-2xl text-gray-300 max-w-2xl mx-auto mb-10 font-light tracking-wide">
+                Engineering high-fidelity interactive experiences for modern venues. We turn foot traffic into verified customer data.
             </p>
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="#lab" class="bg-cyan-600 text-white px-10 py-5 rounded-xl font-bold shadow-xl shadow-cyan-900/40 hover:bg-cyan-500 transition duration-300">
-                    Test Interactive Demo
+            <div class="flex flex-col md:flex-row gap-4 justify-center items-center">
+                <a href="https://ig.me/m/screenxcel" class="px-10 py-4 bg-neon text-midnight font-black uppercase tracking-tighter rounded-xl text-lg hover:shadow-[0_0_20px_#69be28] transition transform active:scale-95">
+                    Request a Demo
                 </a>
-                <a href="#solutions" class="glass px-10 py-5 rounded-xl font-bold hover:bg-white/5 transition duration-300">
-                    Explore Solutions
-                </a>
+                <p class="text-gray-500 text-xs uppercase tracking-widest">Built for Bars, Stadiums & Lounges</p>
             </div>
         </div>
-    </header>
+    </section>
 
-    <!-- Interactive Lab -->
-    <section id="lab" class="py-24 px-6 bg-[#080808]">
-        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
-            <div class="order-2 lg:order-1">
-                <!-- Phone Wrapper -->
-                <div class="relative mx-auto w-full max-w-[340px] h-[680px] bg-black rounded-[3.5rem] phone-mockup overflow-hidden group">
-                    <!-- Top Bar with No Overlap -->
-                    <div class="absolute top-0 w-full h-6 bg-[#1a1a1a] flex justify-center items-center z-20">
-                         <div class="w-12 h-1 bg-white/10 rounded-full"></div>
-                    </div>
-                    
-                    <!-- Desktop Hover Overlay (QR Code) -->
-                    <div class="desktop-only absolute inset-0 bg-black/85 opacity-0 group-hover:opacity-100 transition-opacity z-30 flex flex-col items-center justify-center text-center p-6">
-                        <div class="w-32 h-32 bg-white p-2 rounded-xl mb-4">
-                            <!-- Points to live site so they can try it on mobile -->
-                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.screenxcel.com" alt="QR Code" class="w-full h-full">
-                        </div>
-                        <p class="text-white text-xs font-bold uppercase tracking-widest">Scan to play on your phone</p>
-                    </div>
-
-                    <!-- Inner Frame Content -->
-                    <!-- pt-[15px] moves the header text UP by 3 pixels from the previous [18px] -->
-                    <div class="w-full h-full bg-neutral-900 pt-[15px]">
-                        <iframe 
-                            src="https://toolbox15.github.io/seahawks-scratch-game/" 
-                            class="w-full h-full" 
-                            frameborder="0"
-                            style="border: none;"
-                            title="Interactive Demo"
-                        ></iframe>
-                    </div>
+    <!-- SERVICES -->
+    <section id="services" class="py-24 bg-[#001b36]">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
+                <div class="max-w-xl">
+                    <h2 class="text-neon uppercase tracking-widest text-sm font-bold mb-2">// OUR CAPABILITIES</h2>
+                    <h3 class="text-4xl font-black italic uppercase">Interactive Sales Engines</h3>
                 </div>
+                <p class="text-gray-500 text-sm max-w-sm">We provide the technical framework to engage customers and capture high-value marketing data in real-time.</p>
             </div>
-            
-            <div class="order-1 lg:order-2">
-                <h2 class="text-4xl font-extrabold mb-6 tracking-tight text-white text-glow">The Interactive <span class="text-cyan-500">Lab</span></h2>
-                <p class="text-gray-400 text-lg mb-8 leading-relaxed">
-                    Our scratch-offs aren't just games—they are data-capture engines. 
-                    Experience the friction-free flow that converts anonymous foot traffic into verified customer data.
-                </p>
-                <div class="space-y-6">
-                    <div class="flex gap-4">
-                        <div class="w-12 h-12 glass rounded-lg flex items-center justify-center text-cyan-400 font-bold border border-cyan-500/20">01</div>
-                        <div>
-                            <h4 class="font-bold text-white uppercase text-xs tracking-widest mb-1">Adaptive Rendering</h4>
-                            <p class="text-gray-400 text-sm">Detects user device instantly to deliver a guided desktop preview or a full-screen mobile experience.</p>
-                        </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="glass-card p-10 rounded-2xl">
+                    <div class="text-neon mb-6">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                     </div>
-                    <div class="flex gap-4">
-                        <div class="w-12 h-12 glass rounded-lg flex items-center justify-center text-cyan-400 font-bold border border-cyan-500/20">02</div>
-                        <div>
-                            <h4 class="font-bold text-white uppercase text-xs tracking-widest mb-1">Cross-Device Sync</h4>
-                            <p class="text-gray-400 text-sm">Start on the digital signage, finish with a win on the customer's phone.</p>
-                        </div>
+                    <h4 class="text-xl font-bold mb-3 uppercase italic">Digital Signage</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">Dynamic visual systems that replace static displays with high-fidelity brand storytelling.</p>
+                </div>
+
+                <div class="glass-card p-10 rounded-2xl">
+                    <div class="text-neon mb-6">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 012-2h10a2 2 0 012 2v14a2 2 0 01-2 2H7a2 2 0 01-2-2V5z"/></svg>
                     </div>
+                    <h4 class="text-xl font-bold mb-3 uppercase italic">Interactive Games</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">Proprietary "No-App" game mechanics like the Big Game Scratch to drive instant ROI and prize redemption.</p>
+                </div>
+
+                <div class="glass-card p-10 rounded-2xl">
+                    <div class="text-neon mb-6">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+                    </div>
+                    <h4 class="text-xl font-bold mb-3 uppercase italic">Data Capture</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">Every play is an opt-in. We build your SMS and Email lists while your customers play.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contact Form -->
-    <section id="contact" class="py-32 px-6 bg-black border-t border-white/5">
-        <div class="max-w-2xl mx-auto glass p-10 md:p-16 rounded-[3rem] border-glow">
-            <h2 class="text-3xl font-bold mb-2 text-white text-center">Request an Audit</h2>
-            <p class="text-gray-400 text-sm mb-10 text-center">Ready to digitize your venue?</p>
-            
-            <form class="space-y-6">
-                <input type="text" placeholder="Name" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl text-sm text-white focus:border-cyan-500 outline-none transition">
-                <input type="email" placeholder="Email" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl text-sm text-white focus:border-cyan-500 outline-none transition">
-                <textarea placeholder="Tell us about your project..." rows="4" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl text-sm text-white focus:border-cyan-500 outline-none transition"></textarea>
-                <button type="submit" class="w-full bg-white text-black py-5 rounded-2xl font-black uppercase text-xs tracking-widest hover:bg-cyan-400 transition">Send Message</button>
-            </form>
-        </div>
-    </section>
-
-    <footer class="py-16 text-center text-gray-600 border-t border-white/5">
-        <div class="flex flex-col items-center gap-6">
-            <div class="flex gap-6">
-                 <!-- Instagram DM Link in Footer -->
-                 <a href="https://ig.me/m/screenxcel" target="_blank" class="text-gray-400 hover:text-cyan-400 transition">
-                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                </a>
+    <!-- FOOTER -->
+    <footer class="py-20 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <!-- UPDATED LOGO PNG -->
+            <img src="logo.png" alt="ScreenXcel" class="h-12 w-auto mx-auto mb-8 opacity-80">
+            <div class="flex justify-center space-x-10 mb-10 text-xs uppercase tracking-widest text-gray-500">
+                <a href="https://instagram.com/screenxcel" class="hover:text-neon transition">Instagram</a>
+                <a href="https://ig.me/m/screenxcel" class="hover:text-neon transition">Direct Message</a>
+                <a href="#" class="hover:text-neon transition">Privacy</a>
             </div>
-            <p class="text-[10px] tracking-widest uppercase">&copy; 2026 SCREENXCEL | DIGITAL ARCHITECTURE</p>
+            <p class="text-gray-600 text-[10px] uppercase tracking-[0.3em]">© 2024 SCREENXCEL | THE DIGITAL ARCHITECTURE AGENCY</p>
         </div>
     </footer>
 
