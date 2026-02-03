@@ -9,6 +9,7 @@
         :root {
             --midnight: #002244;
             --neon: #69be28;
+            --dark-blue: #001b36;
         }
         body {
             background-color: var(--midnight);
@@ -18,6 +19,7 @@
         }
         .text-neon { color: var(--neon); }
         .bg-neon { background-color: var(--neon); }
+        .border-neon { border-color: var(--neon); }
         
         .hero-gradient {
             background: linear-gradient(rgba(0, 34, 68, 0.85), rgba(0, 34, 68, 0.95)), url('background.png');
@@ -26,30 +28,40 @@
         }
         
         .glass-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(105, 190, 40, 0.1);
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.4s ease;
         }
         .glass-card:hover {
             border-color: var(--neon);
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(105, 190, 40, 0.1);
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.05);
         }
+
+        .phone-mockup {
+            box-shadow: 0 0 50px rgba(105, 190, 40, 0.2);
+        }
+
+        /* Custom scrollbar for that agency feel */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--midnight); }
+        ::-webkit-scrollbar-thumb { background: #1a3a5a; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--neon); }
     </style>
 </head>
 <body>
 
-    <!-- NAVIGATION -->
-    <nav class="fixed w-full z-50 bg-[#002244]/80 backdrop-blur-md border-b border-white/5">
+    <!-- NAVIGATION (Matches Screenshot 2) -->
+    <nav class="fixed w-full z-50 bg-[#000]/90 backdrop-blur-md border-b border-white/5">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <!-- Professional Logo PNG -->
-            <img src="logo.png" alt="ScreenXcel" class="h-10 w-auto">
+            <img src="logo.png" alt="ScreenXcel" class="h-8 md:h-10 w-auto">
             
-            <div class="hidden md:flex space-x-8 text-[10px] font-black uppercase tracking-[0.2em]">
-                <a href="#services" class="hover:text-neon transition">Services</a>
-                <a href="#demo" class="hover:text-neon transition">Interactive Demo</a>
-                <a href="https://ig.me/m/screenxcel" class="bg-neon text-midnight px-5 py-2 rounded-full hover:scale-105 transition transform">Contact Agency</a>
+            <div class="flex items-center space-x-4 md:space-x-8">
+                <a href="#services" class="hidden md:block text-[10px] font-black uppercase tracking-[0.2em] hover:text-neon transition">Services</a>
+                <a href="https://ig.me/m/screenxcel" class="bg-white text-black px-4 py-2 md:px-6 md:py-2 rounded-full text-[10px] md:text-xs font-black uppercase tracking-widest hover:bg-neon hover:text-midnight transition transform active:scale-95">
+                    Request Audit
+                </a>
             </div>
         </div>
     </nav>
@@ -57,98 +69,113 @@
     <!-- HERO SECTION -->
     <section class="relative min-h-screen flex items-center justify-center hero-gradient px-6 pt-20">
         <div class="max-w-5xl text-center">
-            <h1 class="text-5xl md:text-8xl font-black italic uppercase tracking-tighter leading-none mb-6">
+            <h1 class="text-5xl md:text-8xl font-black italic uppercase tracking-tighter leading-[0.9] mb-6">
                 Digital <span class="text-neon">Architecture</span>
             </h1>
-            <p class="text-lg md:text-2xl text-gray-300 max-w-2xl mx-auto mb-10 font-light tracking-wide">
-                Engineering high-fidelity interactive experiences for premium venues. We turn traffic into verified customer data.
+            <p class="text-lg md:text-2xl text-gray-300 max-w-2xl mx-auto mb-10 font-light tracking-wide leading-relaxed">
+                Engineering high-fidelity interactive experiences for premium venues. We turn foot traffic into verified customer data.
             </p>
             <div class="flex flex-col md:flex-row gap-6 justify-center items-center">
-                <a href="#demo" class="px-10 py-4 bg-neon text-midnight font-black uppercase tracking-tighter rounded-xl text-lg hover:shadow-[0_0_30px_#69be28] transition transform active:scale-95">
-                    View Live Demo
+                <a href="#lab" class="px-10 py-4 bg-neon text-midnight font-black uppercase tracking-tighter rounded-xl text-lg hover:shadow-[0_0_30px_#69be28] transition transform active:scale-95">
+                    Enter the Lab
                 </a>
-                <div class="flex items-center gap-2">
-                    <div class="w-2 h-2 bg-neon rounded-full animate-pulse"></div>
-                    <p class="text-gray-500 text-xs uppercase tracking-widest">Active Deployments in LA</p>
+                <p class="text-gray-500 text-[10px] uppercase tracking-[0.3em] font-bold">Standard of Excellence // LA 2026</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- THE INTERACTIVE LAB (Matches Screenshot 4) -->
+    <section id="lab" class="py-24 bg-[#050505]">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center gap-16">
+            <!-- Phone Mockup -->
+            <div class="w-full md:w-1/2 flex justify-center">
+                <div class="relative phone-mockup border-[8px] border-[#1a1a1a] rounded-[3rem] overflow-hidden aspect-[9/19] w-full max-w-[320px] bg-black">
+                    <!-- This iframe would load the game -->
+                    <iframe src="seahawks_index.html" class="w-full h-full border-none"></iframe>
+                    <!-- Protective overlay for desktop preview -->
+                    <div class="absolute inset-0 pointer-events-none border-[2px] border-white/5 rounded-[2.5rem]"></div>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="w-full md:w-1/2">
+                <h2 class="text-4xl md:text-5xl font-black italic uppercase mb-6 leading-none">
+                    The Interactive <span class="text-[#4cc9f0]">Lab</span>
+                </h2>
+                <p class="text-gray-400 text-lg mb-12 leading-relaxed font-light">
+                    Our scratch-offs aren't just games—they are data-capture engines. Experience the friction-free flow that converts anonymous foot traffic into verified customer data.
+                </p>
+
+                <div class="space-y-8">
+                    <!-- Feature 01 -->
+                    <div class="flex gap-6">
+                        <div class="flex-shrink-0 w-12 h-12 border border-white/10 rounded-xl flex items-center justify-center font-black text-neon text-xl">01</div>
+                        <div>
+                            <h4 class="text-xs font-black uppercase tracking-widest mb-2">Adaptive Rendering</h4>
+                            <p class="text-gray-500 text-sm leading-relaxed">Detects user device instantly to deliver a guided desktop preview or a full-screen mobile experience.</p>
+                        </div>
+                    </div>
+
+                    <!-- Feature 02 -->
+                    <div class="flex gap-6">
+                        <div class="flex-shrink-0 w-12 h-12 border border-white/10 rounded-xl flex items-center justify-center font-black text-[#4cc9f0] text-xl">02</div>
+                        <div>
+                            <h4 class="text-xs font-black uppercase tracking-widest mb-2">Cross-Device Sync</h4>
+                            <p class="text-gray-500 text-sm leading-relaxed">Start on the digital signage, finish with a win on the customer's phone.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- SERVICES / CAPABILITIES -->
-    <section id="services" class="py-24 bg-[#001b36]">
+    <!-- CORE CAPABILITIES (Services) -->
+    <section id="services" class="py-24 bg-[#001b36] border-y border-white/5">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-16">
-                <h2 class="text-neon uppercase tracking-[0.3em] text-xs font-bold mb-4">// CORE CAPABILITIES</h2>
-                <h3 class="text-4xl md:text-5xl font-black italic uppercase">The Interactive Advantage</h3>
+                <h2 class="text-neon uppercase tracking-[0.4em] text-[10px] font-black mb-4">// CORE CAPABILITIES</h2>
+                <h3 class="text-4xl font-black italic uppercase">Digital Infrastructure</h3>
             </div>
 
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Service 1 -->
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Service Card -->
                 <div class="glass-card p-10 rounded-3xl">
                     <div class="text-neon mb-8">
-                        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                     </div>
-                    <h4 class="text-2xl font-bold mb-4 uppercase italic text-white">Digital Signage</h4>
-                    <p class="text-gray-400 leading-relaxed text-sm">Replacing static displays with dynamic visual systems that tell your brand's story in real-time.</p>
+                    <h4 class="text-xl font-black italic uppercase mb-4">Visual Architecture</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">Dynamic signage systems engineered to transform passive viewers into active participants.</p>
                 </div>
 
-                <!-- Service 2 -->
                 <div class="glass-card p-10 rounded-3xl">
                     <div class="text-neon mb-8">
-                        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 012-2h10a2 2 0 012 2v14a2 2 0 01-2 2H7a2 2 0 01-2-2V5z"/></svg>
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 012-2h10a2 2 0 012 2v14a2 2 0 01-2 2H7a2 2 0 01-2-2V5z"/></svg>
                     </div>
-                    <h4 class="text-2xl font-bold mb-4 uppercase italic text-white">Interactive Games</h4>
-                    <p class="text-gray-400 leading-relaxed text-sm">Proprietary "No-App" game mechanics that drive instant ROI and prize redemption at the point of sale.</p>
+                    <h4 class="text-xl font-black italic uppercase mb-4">No-App Mechanics</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">Zero-friction web technologies that work instantly on any mobile browser without downloads.</p>
                 </div>
 
-                <!-- Service 3 -->
                 <div class="glass-card p-10 rounded-3xl">
                     <div class="text-neon mb-8">
-                        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
                     </div>
-                    <h4 class="text-2xl font-bold mb-4 uppercase italic text-white">Data Verification</h4>
-                    <p class="text-gray-400 leading-relaxed text-sm">Turning interactions into insights. We capture verified leads and build your marketing lists automatically.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- DEMO SECTION -->
-    <section id="demo" class="py-24">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="bg-gradient-to-r from-[#001b36] to-[#002244] rounded-[3rem] p-8 md:p-20 border border-white/5 overflow-hidden relative">
-                <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-neon/10 blur-[100px] rounded-full"></div>
-                
-                <div class="flex flex-col md:flex-row items-center gap-12 relative z-10">
-                    <div class="md:w-1/2">
-                        <h2 class="text-4xl md:text-5xl font-black italic uppercase mb-6 leading-tight">Launch the <span class="text-neon">Big Game</span> Experience</h2>
-                        <p class="text-lg text-gray-400 mb-8">
-                            See how we converted game-day excitement into a high-conversion scratch-off game for venues. No friction, just results.
-                        </p>
-                        <!-- Links to your game file -->
-                        <a href="seahawks_index.html" class="inline-block px-8 py-4 bg-neon text-midnight font-black uppercase tracking-tighter rounded-xl hover:scale-105 transition">
-                            Open Interactive Demo
-                        </a>
-                    </div>
-                    <div class="md:w-1/2">
-                        <img src="seahawks-cover.png" alt="Demo Interface" class="rounded-2xl border-2 border-neon/30 shadow-2xl transform rotate-2 hover:rotate-0 transition duration-500">
-                    </div>
+                    <h4 class="text-xl font-black italic uppercase mb-4">ROI Analytics</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">Capture verified leads and track prize redemption to prove exact marketing value for venues.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- FOOTER -->
-    <footer class="py-20 border-t border-white/5 bg-[#001b36]">
+    <footer class="py-20 bg-black">
         <div class="max-w-7xl mx-auto px-6 text-center">
-            <img src="logo.png" alt="ScreenXcel" class="h-12 w-auto mx-auto mb-8 opacity-80">
-            <div class="flex justify-center space-x-12 mb-10 text-[10px] font-bold uppercase tracking-[0.4em] text-gray-500">
+            <img src="logo.png" alt="ScreenXcel" class="h-12 w-auto mx-auto mb-10 opacity-80">
+            <div class="flex justify-center space-x-12 mb-12 text-[10px] font-black uppercase tracking-[0.4em] text-gray-500">
                 <a href="https://instagram.com/screenxcel" class="hover:text-neon transition">Instagram</a>
                 <a href="https://ig.me/m/screenxcel" class="hover:text-neon transition">Message</a>
-                <a href="#services" class="hover:text-neon transition">Services</a>
+                <a href="#lab" class="hover:text-neon transition">The Lab</a>
             </div>
-            <p class="text-gray-600 text-[9px] uppercase tracking-[0.5em]">© 2024 SCREENXCEL | THE DIGITAL ARCHITECTURE AGENCY</p>
+            <p class="text-gray-700 text-[9px] uppercase tracking-[0.6em]">© 2026 SCREENXCEL // DIGITAL ARCHITECTURE AGENCY</p>
         </div>
     </footer>
 
