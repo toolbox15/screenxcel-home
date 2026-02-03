@@ -87,7 +87,7 @@
         <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
             <div class="flex items-center gap-2">
                 <!-- Enlarged Agency Logo -->
-                <img src="logo.png" alt="ScreenXcel" class="h-32 w-auto transition-all hover:scale-105">
+                <img src="logo.png" alt="ScreenXcel" class="h-48 w-auto transition-all hover:scale-105">
             </div>
             <div class="hidden md:flex gap-10 text-sm font-medium text-gray-400 uppercase tracking-widest font-black text-[10px]">
                 <a href="#solutions" class="hover:text-cyan-400 transition">Solutions</a>
@@ -155,11 +155,11 @@
                         <p class="text-cyan-400 text-[10px] mt-2 font-medium italic">Powered by ScreenXcel</p>
                     </div>
 
-                    <!-- The Iframe linked to your Seahawks GitHub page -->
-                    <div class="w-full h-full bg-neutral-950 pt-10">
+                    <!-- The Iframe Container: Shifted up by 10% to cover the gap -->
+                    <div class="w-full h-full bg-neutral-950 relative overflow-hidden">
                         <iframe 
                             src="https://toolbox15.github.io/seahawks-scratch-game/" 
-                            class="w-full h-full" 
+                            class="absolute w-full h-[110%] -top-[10%]" 
                             frameborder="0"
                             title="Interactive Experience"
                         ></iframe>
