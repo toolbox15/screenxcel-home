@@ -2,253 +2,128 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Big Game Scratch | ScreenXcel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScreenXcel | Digital Architecture & Interactive Experiences</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* AGENCY-GRADE MOBILE OPTIMIZATION */
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        :root {
+            --midnight: #002244;
+            --neon: #69be28;
+        }
+        body {
+            background-color: var(--midnight);
+            color: white;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            scroll-behavior: smooth;
+        }
+        .text-neon { color: var(--neon); }
+        .bg-neon { background-color: var(--neon); }
         
-        body { 
-            margin: 0; 
-            padding: 0; 
-            background-image: url('background.png');
+        .hero-gradient {
+            background: linear-gradient(rgba(0, 34, 68, 0.85), rgba(0, 34, 68, 0.95)), url('background.png');
             background-size: cover;
             background-position: center;
-            background-attachment: fixed;
-            background-color: #002244; 
-            overflow: hidden; 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
-            color: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            width: 100vw;
-            position: relative;
         }
-
-        /* Dark overlay for contrast */
-        body::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: rgba(0, 34, 68, 0.65);
-            z-index: 1;
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(105, 190, 40, 0.1);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
         }
-
-        .content-wrapper {
-            position: relative;
-            z-index: 10;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-            max-width: 400px;
-            padding: 20px;
+        .glass-card:hover {
+            border-color: var(--neon);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
-
-        /* NEW LOGO STYLING */
-        .agency-logo-header {
-            width: 180px; /* Adjust size as needed */
-            height: auto;
-            margin-bottom: 5px;
-            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.2));
-        }
-
-        #helmet-header { 
-            display: block; 
-            margin-bottom: 15px; 
-            width: 85px; 
-            height: auto;
-            filter: drop-shadow(0 0 10px rgba(255,255,255,0.2));
-        }
-
-        .container { 
-            position: relative; 
-            width: 275px; 
-            height: 275px; 
-            background: rgba(0, 34, 68, 0.8); 
-            border: 3px solid #69be28;
-            border-radius: 16px;
-            box-shadow: 0 0 30px rgba(105, 190, 40, 0.5);
-            overflow: hidden;
-            visibility: hidden;
-        }
-
-        #scratch-canvas { 
-            position: absolute; 
-            top: 0; 
-            left: 0; 
-            z-index: 12;
-            cursor: crosshair; 
-            touch-action: none; 
-            width: 100%; 
-            height: 100%; 
-            background: transparent !important;
-        }
-
-        #prize { 
-            position: absolute; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%; 
-            z-index: 11;
-            background-image: url('prize-reveal.gif'); 
-            background-position: center;
-            background-size: cover; 
-            background-repeat: no-repeat;
-        }
-
-        .neon-text { 
-            text-align: center; 
-            color: #69be28; 
-            font-weight: bold; 
-            margin-top: 15px;
-            text-transform: uppercase;
-            font-size: 15px;
-            letter-spacing: 3px;
-            text-shadow: 0 0 10px #69be28;
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.5; }
-            100% { opacity: 1; }
-        }
-
-        #claim-section { 
-            display: none; 
-            text-align: center; 
-            margin-top: 10px; 
-        }
-
-        #claim-button {
-            display: inline-block;
-            text-decoration: none;
-            margin-left: 5px; 
-            position: relative;
-        }
-
-        #claim-button img { 
-            width: 210px; 
-            filter: drop-shadow(0 0 15px #69be28);
-            transition: transform 0.2s ease;
-            cursor: pointer;
-        }
-
-        /* BRANDING AT THE BOTTOM */
-        .powered-by-logo {
-            margin-top: 25px;
-            width: 120px;
-            height: auto;
-            opacity: 0.8;
-            transition: opacity 0.3s ease;
-        }
-
-        .powered-by-logo:hover {
-            opacity: 1;
-        }
-
-        #claim-button:active img { transform: scale(0.95); }
     </style>
 </head>
-<body scroll="no">
+<body>
 
-    <div class="content-wrapper">
-        <!-- New Agency Logo replaces the header text -->
-        <img src="logo.png" alt="ScreenXcel" class="agency-logo-header">
-
-        <img id="helmet-header" src="helmet.png" alt="Helmet">
-
-        <div class="container" id="game-box">
-            <div id="prize"></div>
-            <canvas id="scratch-canvas" width="550" height="550"></canvas>
-        </div>
-
-        <div id="instruction-text" class="neon-text">SCRATCH TO WIN</div>
-
-        <div id="claim-section">
-            <!-- Frame Breaker Logic for ig.me link -->
-            <a href="https://ig.me/m/screenxcel?text=I%20WON%20BIG%20GAME%20WINGS!" 
-               id="claim-button" 
-               onclick="window.open(this.href, '_blank'); return false;">
-                <img src="prize-button.png" alt="Claim Prize">
-            </a>
+    <!-- NAVIGATION -->
+    <nav class="fixed w-full z-50 bg-[#002244]/80 backdrop-blur-md border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <!-- UPDATED LOGO PNG -->
+            <img src="logo.png" alt="ScreenXcel Logo" class="h-10 w-auto">
             
-            <!-- Branding at the bottom -->
-            <img src="logo.png" alt="Powered by ScreenXcel" class="powered-by-logo">
+            <div class="hidden md:flex space-x-8 text-[10px] font-black uppercase tracking-[0.2em]">
+                <a href="#services" class="hover:text-neon transition">Services</a>
+                <a href="#portfolio" class="hover:text-neon transition">Architecture</a>
+                <a href="https://ig.me/m/screenxcel" class="text-neon border border-neon px-4 py-2 rounded-full hover:bg-neon hover:text-midnight transition">Contact</a>
+            </div>
         </div>
-    </div>
+    </nav>
 
-    <script>
-        document.addEventListener('touchmove', function(e) { e.preventDefault(); }, { passive: false });
+    <!-- HERO SECTION -->
+    <section class="relative min-h-screen flex items-center justify-center hero-gradient px-6 pt-20">
+        <div class="max-w-5xl text-center">
+            <h1 class="text-5xl md:text-8xl font-black italic uppercase tracking-tighter leading-none mb-6">
+                Digital <span class="text-neon">Architecture</span>
+            </h1>
+            <p class="text-lg md:text-2xl text-gray-300 max-w-2xl mx-auto mb-10 font-light tracking-wide">
+                Engineering high-fidelity interactive experiences for modern venues. We turn foot traffic into verified customer data.
+            </p>
+            <div class="flex flex-col md:flex-row gap-4 justify-center items-center">
+                <a href="https://ig.me/m/screenxcel" class="px-10 py-4 bg-neon text-midnight font-black uppercase tracking-tighter rounded-xl text-lg hover:shadow-[0_0_20px_#69be28] transition transform active:scale-95">
+                    Request a Demo
+                </a>
+                <p class="text-gray-500 text-xs uppercase tracking-widest">Built for Bars, Stadiums & Lounges</p>
+            </div>
+        </div>
+    </section>
 
-        const canvas = document.getElementById('scratch-canvas');
-        const ctx = canvas.getContext('2d');
-        const gameBox = document.getElementById('game-box');
-        const claimSection = document.getElementById('claim-section');
-        const instruction = document.getElementById('instruction-text');
+    <!-- SERVICES -->
+    <section id="services" class="py-24 bg-[#001b36]">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
+                <div class="max-w-xl">
+                    <h2 class="text-neon uppercase tracking-widest text-sm font-bold mb-2">// OUR CAPABILITIES</h2>
+                    <h3 class="text-4xl font-black italic uppercase">Interactive Sales Engines</h3>
+                </div>
+                <p class="text-gray-500 text-sm max-w-sm">We provide the technical framework to engage customers and capture high-value marketing data in real-time.</p>
+            </div>
 
-        ctx.fillStyle = '#002244';
-        ctx.fillRect(0, 0, 550, 550);
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="glass-card p-10 rounded-2xl">
+                    <div class="text-neon mb-6">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                    </div>
+                    <h4 class="text-xl font-bold mb-3 uppercase italic">Digital Signage</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">Dynamic visual systems that replace static displays with high-fidelity brand storytelling.</p>
+                </div>
 
-        const coverImg = new Image();
-        coverImg.crossOrigin = "anonymous";
-        coverImg.src = 'seahawks-cover.png'; 
+                <div class="glass-card p-10 rounded-2xl">
+                    <div class="text-neon mb-6">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 012-2h10a2 2 0 012 2v14a2 2 0 01-2 2H7a2 2 0 01-2-2V5z"/></svg>
+                    </div>
+                    <h4 class="text-xl font-bold mb-3 uppercase italic">Interactive Games</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">Proprietary "No-App" game mechanics like the Big Game Scratch to drive instant ROI and prize redemption.</p>
+                </div>
 
-        coverImg.onload = () => {
-            ctx.clearRect(0, 0, 550, 550);
-            ctx.globalCompositeOperation = 'source-over';
-            ctx.drawImage(coverImg, 0, 0, 550, 550);
-            gameBox.style.visibility = 'visible';
-        };
+                <div class="glass-card p-10 rounded-2xl">
+                    <div class="text-neon mb-6">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+                    </div>
+                    <h4 class="text-xl font-bold mb-3 uppercase italic">Data Capture</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">Every play is an opt-in. We build your SMS and Email lists while your customers play.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        function checkProgress() {
-            try {
-                const pixels = ctx.getImageData(0, 0, 550, 550).data;
-                let clear = 0;
-                for (let i = 3; i < pixels.length; i += 4) { if (pixels[i] === 0) clear++; }
-                
-                const percentage = (clear / (pixels.length / 4));
-                if (percentage > 0.40) {
-                    canvas.style.transition = "opacity 0.6s ease";
-                    canvas.style.opacity = '0';
-                    setTimeout(() => {
-                        canvas.style.display = 'none';
-                        instruction.style.display = 'none';
-                        claimSection.style.display = 'flex';
-                        claimSection.style.flexDirection = 'column';
-                        claimSection.style.alignItems = 'center';
-                    }, 500);
-                }
-            } catch (e) {
-                console.warn("CORS/Security check blocked.");
-            }
-        }
+    <!-- FOOTER -->
+    <footer class="py-20 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <!-- UPDATED LOGO PNG -->
+            <img src="logo.png" alt="ScreenXcel" class="h-12 w-auto mx-auto mb-8 opacity-80">
+            <div class="flex justify-center space-x-10 mb-10 text-xs uppercase tracking-widest text-gray-500">
+                <a href="https://instagram.com/screenxcel" class="hover:text-neon transition">Instagram</a>
+                <a href="https://ig.me/m/screenxcel" class="hover:text-neon transition">Direct Message</a>
+                <a href="#" class="hover:text-neon transition">Privacy</a>
+            </div>
+            <p class="text-gray-600 text-[10px] uppercase tracking-[0.3em]">© 2024 SCREENXCEL | THE DIGITAL ARCHITECTURE AGENCY</p>
+        </div>
+    </footer>
 
-        function scratch(e) {
-            const r = canvas.getBoundingClientRect();
-            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-            const x = (clientX - r.left) * (550 / r.width);
-            const y = (clientY - r.top) * (550 / r.height);
-            
-            ctx.globalCompositeOperation = 'destination-out';
-            ctx.beginPath(); 
-            ctx.arc(x, y, 45, 0, Math.PI * 2); 
-            ctx.fill();
-            checkProgress();
-        }
-
-        canvas.addEventListener('touchmove', scratch, { passive: false });
-        canvas.addEventListener('mousedown', (e) => {
-             const move = (me) => scratch(me);
-             canvas.addEventListener('mousemove', move);
-             window.addEventListener('mouseup', () => canvas.removeEventListener('mousemove', move), { once: true });
-        });
-    </script>
 </body>
 </html>
