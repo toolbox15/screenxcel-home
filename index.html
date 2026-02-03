@@ -17,9 +17,6 @@
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
-        .text-glow {
-            text-shadow: 0 0 15px rgba(34, 211, 238, 0.5);
-        }
         .border-glow:hover {
             border-color: rgba(34, 211, 238, 0.4);
             box-shadow: 0 0 20px rgba(34, 211, 238, 0.1);
@@ -28,7 +25,6 @@
             box-shadow: 0 50px 100px -20px rgba(0, 0, 0, 0.5), 0 30px 60px -30px rgba(0, 0, 0, 0.6);
         }
         
-        /* Background Carousel Animation */
         .carousel-container {
             position: absolute;
             inset: 0;
@@ -43,7 +39,6 @@
             background-size: cover;
             background-position: center;
         }
-        /* Linking your GitHub images to the carousel */
         .carousel-slide:nth-child(1) { 
             animation-delay: 0s; 
             background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('restaurant.jpg'); 
@@ -63,16 +58,13 @@
             66%, 100% { opacity: 0; transform: scale(1.05); }
         }
 
-        /* Custom scrollbar */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #050505; }
         ::-webkit-scrollbar-thumb { background: #222; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #333; }
         
-        /* Mobile-specific display logic */
         @media (max-width: 768px) {
-            .desktop-only { display: none; }
             .mobile-only { display: block; }
+            .desktop-only { display: none; }
         }
         @media (min-width: 769px) {
             .mobile-only { display: none; }
@@ -80,15 +72,14 @@
         }
     </style>
 </head>
-<body class="selection:bg-cyan-500/30 selection:text-cyan-200">
+<body class="selection:bg-cyan-500/30">
 
     <!-- Navigation -->
     <nav class="fixed top-0 w-full z-50 glass border-b border-white/5 py-2">
         <div class="max-w-7xl mx-auto px-6 flex justify-between items-center relative h-10">
             <div class="flex items-center h-full">
-                <!-- Massive Overflowing Logo -->
                 <div class="relative w-56 h-full">
-                    <img src="logo.png" alt="ScreenXcel" class="absolute top-1/2 -translate-y-1/2 h-64 w-auto transition-all hover:scale-105 z-50 drop-shadow-2xl">
+                    <img src="logo.png" alt="ScreenXcel" class="absolute top-1/2 -translate-y-1/2 h-64 w-auto z-50 drop-shadow-2xl">
                 </div>
             </div>
             <div class="hidden md:flex gap-10 text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">
@@ -96,18 +87,17 @@
                 <a href="#lab" class="hover:text-cyan-400 transition">Interactive Lab</a>
                 <a href="#brand" class="hover:text-cyan-400 transition">Custom Design</a>
             </div>
-            <a href="#contact" class="bg-white text-black px-6 py-2 rounded-full text-[11px] font-black uppercase hover:bg-cyan-400 transition tracking-tighter shadow-lg active:scale-95 transition-transform">Request Audit</a>
+            <a href="#contact" class="bg-white text-black px-6 py-2 rounded-full text-[11px] font-black uppercase hover:bg-cyan-400 transition shadow-lg active:scale-95 transition-transform">Request Audit</a>
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Hero -->
     <header class="relative pt-64 pb-32 px-6 overflow-hidden min-h-screen flex items-center">
         <div class="carousel-container">
             <div class="carousel-slide"></div>
             <div class="carousel-slide"></div>
             <div class="carousel-slide"></div>
         </div>
-
         <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-cyan-500/10 blur-[180px] rounded-full"></div>
         
         <div class="max-w-7xl mx-auto text-center relative z-10">
@@ -121,20 +111,19 @@
             <p class="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto mb-12 leading-relaxed">
                 High-performance digital signage and interactive scratch-offs designed for 
                 <span class="text-white font-semibold">Restaurants, Bars, Pubs, and Office Buildings.</span> 
-                Seamless technology architected to match your unique brand DNA.
             </p>
-            <div class="flex flex-col sm:flex-row justify-center gap-6">
-                <a href="#lab" class="bg-cyan-600 text-white px-12 py-5 rounded-2xl font-black shadow-2xl shadow-cyan-900/40 hover:bg-cyan-500 transition duration-300 uppercase italic tracking-tighter text-lg active:scale-95 transition-transform">
+            <div class="flex flex-col sm:row justify-center gap-6">
+                <a href="#lab" class="bg-cyan-600 text-white px-12 py-5 rounded-2xl font-black shadow-2xl hover:bg-cyan-500 uppercase italic text-lg active:scale-95 transition-transform">
                     Test Interactive Demo
                 </a>
-                <a href="#solutions" class="glass px-12 py-5 rounded-2xl font-black hover:bg-white/5 transition duration-300 uppercase italic tracking-tighter text-lg border border-white/10 active:scale-95 transition-transform">
+                <a href="#solutions" class="glass px-12 py-5 rounded-2xl font-black hover:bg-white/5 uppercase italic text-lg border border-white/10 active:scale-95 transition-transform">
                     Explore Solutions
                 </a>
             </div>
         </div>
     </header>
 
-    <!-- Interactive Lab -->
+    <!-- Lab (Iframe & QR Logic) -->
     <section id="lab" class="py-32 px-6 bg-[#080808]">
         <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
             <div class="order-2 lg:order-1">
@@ -143,16 +132,13 @@
                         <div class="w-28 h-6 bg-[#262626] rounded-full"></div>
                     </div>
                     
-                    <!-- QR Code Overlay (Hidden on Mobile) -->
                     <div class="hidden md:flex absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity z-30 flex-col items-center justify-center text-center p-8 backdrop-blur-sm">
                         <div class="w-44 h-44 bg-white p-3 rounded-2xl mb-6 shadow-2xl">
                             <img src="qrcode.png" alt="QR Code" class="w-full h-full object-contain">
                         </div>
-                        <p class="text-white text-[11px] font-black uppercase tracking-[0.2em]">Scan to play on mobile device</p>
-                        <p class="text-cyan-400 text-[10px] mt-2 font-medium italic">Powered by ScreenXcel</p>
+                        <p class="text-white text-[11px] font-black uppercase tracking-[0.2em]">Scan to play on mobile</p>
                     </div>
 
-                    <!-- Iframe container with 10% upward shift -->
                     <div class="w-full h-full bg-neutral-950 relative overflow-hidden">
                         <iframe 
                             src="https://toolbox15.github.io/seahawks-scratch-game/" 
@@ -171,8 +157,7 @@
             </div>
             
             <div class="order-1 lg:order-2">
-                <div class="inline-block px-3 py-1 bg-cyan-500/10 text-cyan-400 rounded-md text-[10px] font-black uppercase tracking-widest mb-4">The Laboratory</div>
-                <h2 class="text-5xl font-black italic mb-8 tracking-tighter uppercase leading-none">The Interactive <span class="text-cyan-500">Lab</span></h2>
+                <h2 class="text-5xl font-black italic mb-8 uppercase leading-none">The Interactive <span class="text-cyan-500">Lab</span></h2>
                 <p class="text-gray-400 text-lg mb-10 font-light leading-relaxed">
                     Our scratch-offs aren't just games—they are data-capture engines. Experience the friction-free flow that converts anonymous foot traffic into verified customer data.
                 </p>
@@ -181,14 +166,14 @@
                         <div class="flex-shrink-0 w-14 h-14 glass rounded-2xl flex items-center justify-center text-cyan-400 font-black border border-white/5">01</div>
                         <div>
                             <h4 class="font-black text-white uppercase text-[11px] tracking-[0.25em] mb-2">Adaptive Rendering</h4>
-                            <p class="text-gray-400 text-sm font-light leading-relaxed">Delivering optimal visual fidelity regardless of user hardware.</p>
+                            <p class="text-gray-400 text-sm font-light leading-relaxed">Detects user device instantly to deliver the optimal screen-size experience.</p>
                         </div>
                     </div>
                     <div class="flex gap-6">
                         <div class="flex-shrink-0 w-14 h-14 glass rounded-2xl flex items-center justify-center text-cyan-400 font-black border border-white/5">02</div>
                         <div>
                             <h4 class="font-black text-white uppercase text-[11px] tracking-[0.25em] mb-2">Cross-Device Sync</h4>
-                            <p class="text-gray-400 text-sm font-light leading-relaxed">Seamlessly move from the digital wall signage to the phone in hand.</p>
+                            <p class="text-gray-400 text-sm font-light leading-relaxed">Initiate engagement on wall signage, finish with a win on the phone.</p>
                         </div>
                     </div>
                 </div>
@@ -196,47 +181,27 @@
         </div>
     </section>
 
-    <!-- Vertical Markets -->
-    <section id="solutions" class="py-32 px-6 border-y border-white/5">
-        <div class="max-w-7xl mx-auto text-center mb-20">
-            <h2 class="text-5xl font-black italic uppercase tracking-tighter mb-4">Vertical Specialization</h2>
-            <div class="w-20 h-1 bg-cyan-500 mx-auto rounded-full mb-6"></div>
-            <p class="text-gray-400 font-light text-lg">Targeted digital architecture for diverse high-traffic environments.</p>
-        </div>
-        <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-8 text-center">
-            <div class="glass p-10 rounded-[2.5rem] border-glow transition-all duration-500">
-                <h3 class="text-2xl font-black mb-6 text-cyan-400 italic uppercase tracking-tighter">Restaurants & Bars</h3>
-                <p class="text-gray-400 text-sm leading-relaxed mb-8 font-light italic">Interactive menus and "Scratch-for-Appetizers" codes.</p>
-            </div>
-            <div class="glass p-10 rounded-[2.5rem] border-glow transition-all duration-500">
-                <h3 class="text-2xl font-black mb-6 text-cyan-400 italic uppercase tracking-tighter">Office Buildings</h3>
-                <p class="text-gray-400 text-sm leading-relaxed mb-8 font-light italic">Dynamic directories and tenant amenities engagement.</p>
-            </div>
-            <div class="glass p-10 rounded-[2.5rem] border-glow transition-all duration-500">
-                <h3 class="text-2xl font-black mb-6 text-cyan-400 italic uppercase tracking-tighter">Digital Signage</h3>
-                <p class="text-gray-400 text-sm leading-relaxed mb-8 font-light italic">High-definition wall signage synchronized with mobile engagement.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Form (Integrated with your Formspree Endpoint) -->
+    <!-- Contact (Updated with Redirect) -->
     <section id="contact" class="py-32 px-6 bg-black border-t border-white/5">
         <div class="max-w-2xl mx-auto glass p-12 md:p-20 rounded-[3.5rem] border border-white/10 shadow-2xl">
             <h2 class="text-4xl font-black mb-4 uppercase italic tracking-tighter text-white">Request an Audit</h2>
             <p class="text-gray-400 text-sm mb-12 font-light italic leading-relaxed">Architecture available for Seattle and Chicago markets.</p>
             
             <form action="https://formspree.io/f/xpqlbkyy" method="POST" class="space-y-6">
+                <!-- REDIRECT LOGO: Tells Formspree where to send user after success -->
+                <input type="hidden" name="_next" value="https://toolbox15.github.io/seahawks-scratch-game/thanks.html">
+                
                 <div class="grid md:grid-cols-2 gap-6">
-                    <input type="text" name="name" placeholder="Full Name" required class="w-full bg-white/5 border border-white/10 p-5 rounded-2xl text-sm focus:outline-none focus:border-cyan-500 transition text-white">
-                    <select name="venue-type" class="w-full bg-white/5 border border-white/10 p-5 rounded-2xl text-sm focus:outline-none focus:border-cyan-500 transition text-gray-400">
+                    <input type="text" name="name" placeholder="Full Name" required class="w-full bg-white/5 border border-white/10 p-5 rounded-2xl text-sm focus:outline-none focus:border-cyan-500 text-white">
+                    <select name="venue-type" class="w-full bg-white/5 border border-white/10 p-5 rounded-2xl text-sm focus:outline-none focus:border-cyan-500 text-gray-400">
                         <option value="restaurant">Restaurant</option>
                         <option value="bar">Sports Bar / Pub</option>
-                        <option value="office">Office Building / Lobby</option>
-                        <option value="other">Other Venue</option>
+                        <option value="office">Office Building</option>
+                        <option value="other">Other</option>
                     </select>
                 </div>
-                <input type="email" name="email" placeholder="Email Address" required class="w-full bg-white/5 border border-white/10 p-5 rounded-2xl text-sm focus:outline-none focus:border-cyan-500 transition text-white">
-                <textarea name="message" placeholder="Describe your architectural needs..." rows="5" required class="w-full bg-white/5 border border-white/10 p-5 rounded-2xl text-sm focus:outline-none focus:border-cyan-500 transition text-white"></textarea>
+                <input type="email" name="email" placeholder="Email Address" required class="w-full bg-white/5 border border-white/10 p-5 rounded-2xl text-sm focus:outline-none focus:border-cyan-500 text-white">
+                <textarea name="message" placeholder="Describe your project..." rows="5" required class="w-full bg-white/5 border border-white/10 p-5 rounded-2xl text-sm focus:outline-none focus:border-cyan-500 text-white"></textarea>
                 
                 <button type="submit" class="w-full bg-white text-black py-6 rounded-2xl font-black uppercase text-xs tracking-[0.3em] hover:bg-cyan-400 transition transform active:scale-95 shadow-xl">
                     Initiate Connection
@@ -247,10 +212,10 @@
 
     <!-- Footer -->
     <footer class="py-32 bg-black border-t border-white/5 flex flex-col items-center">
-        <img src="logo.png" alt="ScreenXcel" class="h-32 w-auto mb-12 opacity-80 grayscale-0 transition-all duration-700 hover:scale-110">
-        <div class="flex gap-12 mb-12">
-            <a href="https://instagram.com/screenxcel" class="text-gray-600 hover:text-white transition uppercase font-black text-[10px] tracking-widest">Instagram</a>
-            <a href="https://ig.me/m/screenxcel" class="text-gray-600 hover:text-white transition uppercase font-black text-[10px] tracking-widest">Message</a>
+        <img src="logo.png" alt="ScreenXcel" class="h-32 w-auto mb-12 opacity-80 hover:scale-110 transition-transform">
+        <div class="flex gap-12 mb-12 text-[10px] font-black uppercase tracking-widest text-gray-500">
+            <a href="https://instagram.com/screenxcel" class="hover:text-white transition">Instagram</a>
+            <a href="https://ig.me/m/screenxcel" class="hover:text-white transition">Message</a>
         </div>
         <p class="text-gray-700 text-[9px] tracking-[0.5em] uppercase italic font-bold">
             &copy; 2026 SCREENXCEL | DIGITAL ARCHITECTURE FOR VENUES
