@@ -3,9 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ScreenXcel | Digital Signage & Interactive Architecture</title>
+    
+    <!-- SEO Optimization -->
+    <title>ScreenXcel | Digital Signage Promotional Games & Interactive Architecture</title>
+    <meta name="description" content="ScreenXcel engineers high-performance digital signage and interactive promotional games designed to generate foot traffic for restaurants, bars, and office buildings. No-app scratch-offs for modern venues.">
+    <meta name="keywords" content="digital signage, promotional games, foot traffic, interactive marketing, hospitality technology, scratch-off games for business, ScreenXcel">
+    <link rel="canonical" href="https://toolbox15.github.io/seahawks-scratch-game/">
+    
+    <!-- Open Graph for Social Sharing -->
+    <meta property="og:title" content="ScreenXcel | Own the Screen, Rule the Venue">
+    <meta property="og:description" content="Turn foot traffic into verified data with interactive digital signage games.">
+    <meta property="og:image" content="logo.png">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -25,6 +37,7 @@
             box-shadow: 0 50px 100px -20px rgba(0, 0, 0, 0.5), 0 30px 60px -30px rgba(0, 0, 0, 0.6);
         }
         
+        /* Background Carousel Animation */
         .carousel-container {
             position: absolute;
             inset: 0;
@@ -78,8 +91,9 @@
     <nav class="fixed top-0 w-full z-50 glass border-b border-white/5 py-2">
         <div class="max-w-7xl mx-auto px-6 flex justify-between items-center relative h-10">
             <div class="flex items-center h-full">
+                <!-- Massive Overflowing Logo Preserved -->
                 <div class="relative w-56 h-full">
-                    <img src="logo.png" alt="ScreenXcel" class="absolute top-1/2 -translate-y-1/2 h-64 w-auto z-50 drop-shadow-2xl">
+                    <img src="logo.png" alt="ScreenXcel Digital Architecture Logo" class="absolute top-1/2 -translate-y-1/2 h-64 w-auto z-50 drop-shadow-2xl">
                 </div>
             </div>
             <div class="hidden md:flex gap-10 text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">
@@ -91,9 +105,9 @@
         </div>
     </nav>
 
-    <!-- Hero -->
+    <!-- Hero Section (Header text and buttons updated for better balance) -->
     <header class="relative pt-64 pb-32 px-6 overflow-hidden min-h-screen flex items-center">
-        <div class="carousel-container">
+        <div class="carousel-container" aria-hidden="true">
             <div class="carousel-slide"></div>
             <div class="carousel-slide"></div>
             <div class="carousel-slide"></div>
@@ -102,28 +116,29 @@
         
         <div class="max-w-7xl mx-auto text-center relative z-10">
             <div class="inline-block px-4 py-2 glass rounded-full text-[10px] font-bold tracking-widest text-cyan-400 uppercase mb-8 border border-cyan-500/20">
-                Digital Architecture for the Modern Venue
+                Digital Signage & Promotional Game Architecture
             </div>
-            <h1 class="text-6xl md:text-8xl lg:text-9xl font-extrabold tracking-tight mb-8 leading-[1.1] uppercase italic">
+            <!-- Smaller Header Text for Professional Balance -->
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-8 leading-[1.1] uppercase italic">
                 Own the <span class="text-white">Screen.</span> <br>
                 Rule the <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Venue.</span>
             </h1>
             <p class="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto mb-12 leading-relaxed">
-                High-performance digital signage and interactive scratch-offs designed for 
-                <span class="text-white font-semibold">Restaurants, Bars, Pubs, and Office Buildings.</span> 
+                High-fidelity <span class="text-white">digital signage promotional games</span> engineered for Restaurants, Bars, and Office Buildings. Generate foot traffic through zero-friction interactive experiences.
             </p>
-            <div class="flex flex-col sm:row justify-center gap-6">
-                <a href="#lab" class="bg-cyan-600 text-white px-12 py-5 rounded-2xl font-black shadow-2xl hover:bg-cyan-500 uppercase italic text-lg active:scale-95 transition-transform">
+            <!-- Scaled Down Hero Buttons -->
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#lab" class="bg-cyan-600 text-white px-8 py-3 rounded-xl font-black shadow-2xl hover:bg-cyan-500 uppercase italic text-base active:scale-95 transition-transform">
                     Test Interactive Demo
                 </a>
-                <a href="#solutions" class="glass px-12 py-5 rounded-2xl font-black hover:bg-white/5 uppercase italic text-lg border border-white/10 active:scale-95 transition-transform">
+                <a href="#solutions" class="glass px-8 py-3 rounded-xl font-black hover:bg-white/5 uppercase italic text-base border border-white/10 active:scale-95 transition-transform">
                     Explore Solutions
                 </a>
             </div>
         </div>
     </header>
 
-    <!-- Lab (Iframe & QR Logic) -->
+    <!-- Lab (Iframe Alignment and QR Logic Preserved) -->
     <section id="lab" class="py-32 px-6 bg-[#080808]">
         <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
             <div class="order-2 lg:order-1">
@@ -132,19 +147,21 @@
                         <div class="w-28 h-6 bg-[#262626] rounded-full"></div>
                     </div>
                     
+                    <!-- QR Code (Hidden on Mobile) -->
                     <div class="hidden md:flex absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity z-30 flex-col items-center justify-center text-center p-8 backdrop-blur-sm">
                         <div class="w-44 h-44 bg-white p-3 rounded-2xl mb-6 shadow-2xl">
-                            <img src="qrcode.png" alt="QR Code" class="w-full h-full object-contain">
+                            <img src="qrcode.png" alt="Scan to play interactive signage game" class="w-full h-full object-contain">
                         </div>
                         <p class="text-white text-[11px] font-black uppercase tracking-[0.2em]">Scan to play on mobile</p>
                     </div>
 
+                    <!-- Iframe shifted up 10% to eliminate gap -->
                     <div class="w-full h-full bg-neutral-950 relative overflow-hidden">
                         <iframe 
                             src="https://toolbox15.github.io/seahawks-scratch-game/" 
                             class="absolute w-full h-[110%] -top-[10%]" 
                             frameborder="0"
-                            title="Interactive Experience"
+                            title="ScreenXcel Seahawks Scratch-off Game Demo"
                         ></iframe>
                     </div>
                 </div>
@@ -159,21 +176,21 @@
             <div class="order-1 lg:order-2">
                 <h2 class="text-5xl font-black italic mb-8 uppercase leading-none">The Interactive <span class="text-cyan-500">Lab</span></h2>
                 <p class="text-gray-400 text-lg mb-10 font-light leading-relaxed">
-                    Our scratch-offs aren't just games—they are data-capture engines. Experience the friction-free flow that converts anonymous foot traffic into verified customer data.
+                    Our <span class="text-white">promotional games</span> aren't just entertainment—they are data-capture engines. We convert anonymous foot traffic into verified customer data through friction-free mobile engagement.
                 </p>
                 <div class="space-y-8">
                     <div class="flex gap-6">
                         <div class="flex-shrink-0 w-14 h-14 glass rounded-2xl flex items-center justify-center text-cyan-400 font-black border border-white/5">01</div>
                         <div>
-                            <h4 class="font-black text-white uppercase text-[11px] tracking-[0.25em] mb-2">Adaptive Rendering</h4>
-                            <p class="text-gray-400 text-sm font-light leading-relaxed">Detects user device instantly to deliver the optimal screen-size experience.</p>
+                            <h4 class="font-black text-white uppercase text-[11px] tracking-[0.25em] mb-2">Foot Traffic Generation</h4>
+                            <p class="text-gray-400 text-sm font-light leading-relaxed">Drive physical visits using enticing digital signage incentives and prize mechanics.</p>
                         </div>
                     </div>
                     <div class="flex gap-6">
                         <div class="flex-shrink-0 w-14 h-14 glass rounded-2xl flex items-center justify-center text-cyan-400 font-black border border-white/5">02</div>
                         <div>
-                            <h4 class="font-black text-white uppercase text-[11px] tracking-[0.25em] mb-2">Cross-Device Sync</h4>
-                            <p class="text-gray-400 text-sm font-light leading-relaxed">Initiate engagement on wall signage, finish with a win on the phone.</p>
+                            <h4 class="font-black text-white uppercase text-[11px] tracking-[0.25em] mb-2">Digital Signage ROI</h4>
+                            <p class="text-gray-400 text-sm font-light leading-relaxed">Transform your screens from static displays into measurable marketing assets.</p>
                         </div>
                     </div>
                 </div>
@@ -181,14 +198,37 @@
         </div>
     </section>
 
-    <!-- Contact (Updated with Redirect) -->
+    <!-- Solutions (SEO Rich content) -->
+    <section id="solutions" class="py-32 px-6 border-y border-white/5">
+        <div class="max-w-7xl mx-auto text-center mb-20">
+            <h2 class="text-5xl font-black italic uppercase tracking-tighter mb-4">Venue Specialization</h2>
+            <div class="w-20 h-1 bg-cyan-500 mx-auto rounded-full mb-6"></div>
+            <p class="text-gray-400 font-light text-lg">Targeted digital architecture for diverse high-traffic environments.</p>
+        </div>
+        <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-8">
+            <article class="glass p-10 rounded-[2.5rem] border-glow transition-all duration-500">
+                <h3 class="text-2xl font-black mb-6 text-cyan-400 italic uppercase tracking-tighter">Restaurants & Bars</h3>
+                <p class="text-gray-400 text-sm leading-relaxed font-light">Boost appetizers and drink sales with high-energy "Scratch-for-Rewards" QR mechanics during live sporting events.</p>
+            </article>
+            <article class="glass p-10 rounded-[2.5rem] border-glow transition-all duration-500">
+                <h3 class="text-2xl font-black mb-6 text-cyan-400 italic uppercase tracking-tighter">Office Buildings</h3>
+                <p class="text-gray-400 text-sm leading-relaxed font-light">Engage tenants and visitors with dynamic lobby directories and amenity-focused promotional games.</p>
+            </article>
+            <article class="glass p-10 rounded-[2.5rem] border-glow transition-all duration-500">
+                <h3 class="text-2xl font-black mb-6 text-cyan-400 italic uppercase tracking-tighter">Retail Spaces</h3>
+                <p class="text-gray-400 text-sm leading-relaxed font-light">Rule the mall. Synchronized wall signage and mobile games engineered to stop passersby and drive store entry.</p>
+            </article>
+        </div>
+    </section>
+
+    <!-- Contact Form (Functional with Formspree) -->
     <section id="contact" class="py-32 px-6 bg-black border-t border-white/5">
-        <div class="max-w-2xl mx-auto glass p-12 md:p-20 rounded-[3.5rem] border border-white/10 shadow-2xl">
+        <div class="max-w-2xl mx-auto glass p-12 md:p-20 rounded-[3.5rem] border border-white/10 shadow-2xl relative">
             <h2 class="text-4xl font-black mb-4 uppercase italic tracking-tighter text-white">Request an Audit</h2>
             <p class="text-gray-400 text-sm mb-12 font-light italic leading-relaxed">Architecture available for Seattle and Chicago markets.</p>
             
             <form action="https://formspree.io/f/xpqlbkyy" method="POST" class="space-y-6">
-                <!-- REDIRECT LOGO: Tells Formspree where to send user after success -->
+                <!-- Redirect after submission -->
                 <input type="hidden" name="_next" value="https://toolbox15.github.io/seahawks-scratch-game/thanks.html">
                 
                 <div class="grid md:grid-cols-2 gap-6">
@@ -212,13 +252,14 @@
 
     <!-- Footer -->
     <footer class="py-32 bg-black border-t border-white/5 flex flex-col items-center">
-        <img src="logo.png" alt="ScreenXcel" class="h-32 w-auto mb-12 opacity-80 hover:scale-110 transition-transform">
+        <!-- Footer Logo Preserved -->
+        <img src="logo.png" alt="ScreenXcel | Digital Signage Architectural Experts" class="h-32 w-auto mb-12 opacity-80 hover:scale-110 transition-transform">
         <div class="flex gap-12 mb-12 text-[10px] font-black uppercase tracking-widest text-gray-500">
             <a href="https://instagram.com/screenxcel" class="hover:text-white transition">Instagram</a>
             <a href="https://ig.me/m/screenxcel" class="hover:text-white transition">Message</a>
         </div>
         <p class="text-gray-700 text-[9px] tracking-[0.5em] uppercase italic font-bold">
-            &copy; 2026 SCREENXCEL | DIGITAL ARCHITECTURE FOR VENUES
+            &copy; 2026 SCREENXCEL | DIGITAL SIGNAGE PROMOTIONAL GAMES
         </p>
     </footer>
 
