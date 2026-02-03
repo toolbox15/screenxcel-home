@@ -2,155 +2,262 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ScreenXcel | Digital Architecture & Interactive Experiences</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ScreenXcel | Interactive Experience</title>
     <style>
-        :root {
-            --midnight: #002244;
-            --neon: #69be28;
-        }
-        body {
-            background-color: var(--midnight);
-            color: white;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            scroll-behavior: smooth;
-        }
-        .text-neon { color: var(--neon); }
-        .bg-neon { background-color: var(--neon); }
+        /* FULL SCREEN MOBILE OPTIMIZATION */
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         
-        .hero-gradient {
-            background: linear-gradient(rgba(0, 34, 68, 0.85), rgba(0, 34, 68, 0.95)), url('background.png');
+        body { 
+            margin: 0; 
+            padding: 0; 
+            background-image: url('background.png');
             background-size: cover;
             background-position: center;
+            background-attachment: fixed;
+            background-color: #002244; 
+            overflow: hidden; 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            width: 100vw;
+            position: relative;
         }
-        
-        .glass-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(105, 190, 40, 0.1);
-            backdrop-filter: blur(10px);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+        /* Dark overlay for contrast */
+        body::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 34, 68, 0.65);
+            z-index: 1;
         }
-        .glass-card:hover {
-            border-color: var(--neon);
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(105, 190, 40, 0.1);
+
+        .content-wrapper {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 400px;
+            padding: 10px;
         }
+
+        /* SCREENXCEL AGENCY LOGO */
+        .agency-logo {
+            width: 160px;
+            height: auto;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.2));
+        }
+
+        .main-header { 
+            text-align: center; 
+            margin: 0 0 5px 0;
+            font-size: 22px; 
+            font-weight: 900;
+            text-shadow: 0 0 15px rgba(105, 190, 40, 0.8);
+            letter-spacing: -1px;
+            text-transform: uppercase;
+            font-style: italic;
+        }
+
+        #helmet-header { 
+            display: block; 
+            margin-bottom: 10px; 
+            width: 80px; 
+            height: auto;
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.2));
+        }
+
+        .container { 
+            position: relative; 
+            width: 275px; 
+            height: 275px; 
+            background: rgba(0, 34, 68, 0.8); 
+            border: 3px solid #69be28;
+            border-radius: 16px;
+            box-shadow: 0 0 30px rgba(105, 190, 40, 0.5);
+            overflow: hidden;
+            visibility: hidden;
+        }
+
+        #scratch-canvas { 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            z-index: 12;
+            cursor: crosshair; 
+            touch-action: none; 
+            width: 100%; 
+            height: 100%; 
+            background: transparent !important;
+        }
+
+        #prize { 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            z-index: 11;
+            background-image: url('prize-reveal.gif'); 
+            background-position: center;
+            background-size: cover; 
+            background-repeat: no-repeat;
+        }
+
+        .neon-text { 
+            text-align: center; 
+            color: #69be28; 
+            font-weight: bold; 
+            margin-top: 15px;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px #69be28;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        #claim-section { 
+            display: none; 
+            text-align: center; 
+            margin-top: 10px; 
+        }
+
+        #claim-button {
+            display: inline-block;
+            text-decoration: none;
+            /* Shifting over to the right slightly as requested earlier */
+            margin-left: 8px; 
+            position: relative;
+        }
+
+        #claim-button img { 
+            width: 200px; 
+            filter: drop-shadow(0 0 15px #69be28);
+            transition: transform 0.2s ease;
+            cursor: pointer;
+        }
+
+        /* POWERED BY LOGO AT THE BOTTOM */
+        .powered-by-logo {
+            margin-top: 20px;
+            width: 110px;
+            height: auto;
+            opacity: 0.7;
+        }
+
+        #claim-button:active img { transform: scale(0.95); }
     </style>
 </head>
-<body>
+<body scroll="no">
 
-    <!-- NAVIGATION -->
-    <nav class="fixed w-full z-50 bg-[#002244]/80 backdrop-blur-md border-b border-white/5">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <!-- Professional Logo PNG -->
-            <img src="logo.png" alt="ScreenXcel" class="h-10 w-auto">
+    <div class="content-wrapper">
+        <!-- Professional ScreenXcel Logo -->
+        <img src="logo.png" alt="ScreenXcel" class="agency-logo">
+
+        <h1 class="main-header">BIG GAME DAY LX</h1>
+
+        <img id="helmet-header" src="helmet.png" alt="Helmet">
+
+        <div class="container" id="game-box">
+            <div id="prize"></div>
+            <canvas id="scratch-canvas" width="550" height="550"></canvas>
+        </div>
+
+        <div id="instruction-text" class="neon-text">SCRATCH TO WIN</div>
+
+        <div id="claim-section">
+            <!-- Fixed IG Link Logic -->
+            <a href="https://ig.me/m/screenxcel?text=I%20WON%20BIG%20GAME%20WINGS!" 
+               id="claim-button" 
+               onclick="window.open(this.href, '_blank'); return false;">
+                <img src="prize-button.png" alt="Claim Prize">
+            </a>
             
-            <div class="hidden md:flex space-x-8 text-[10px] font-black uppercase tracking-[0.2em]">
-                <a href="#services" class="hover:text-neon transition">Services</a>
-                <a href="#demo" class="hover:text-neon transition">Interactive Demo</a>
-                <a href="https://ig.me/m/screenxcel" class="bg-neon text-midnight px-5 py-2 rounded-full hover:scale-105 transition transform">Contact Agency</a>
-            </div>
+            <!-- Branding on the win screen -->
+            <img src="logo.png" alt="Powered by ScreenXcel" class="powered-by-logo">
         </div>
-    </nav>
+    </div>
 
-    <!-- HERO SECTION -->
-    <section class="relative min-h-screen flex items-center justify-center hero-gradient px-6 pt-20">
-        <div class="max-w-5xl text-center">
-            <h1 class="text-5xl md:text-8xl font-black italic uppercase tracking-tighter leading-none mb-6">
-                Digital <span class="text-neon">Architecture</span>
-            </h1>
-            <p class="text-lg md:text-2xl text-gray-300 max-w-2xl mx-auto mb-10 font-light tracking-wide">
-                Engineering high-fidelity interactive experiences for premium venues. We turn traffic into verified customer data.
-            </p>
-            <div class="flex flex-col md:flex-row gap-6 justify-center items-center">
-                <a href="#demo" class="px-10 py-4 bg-neon text-midnight font-black uppercase tracking-tighter rounded-xl text-lg hover:shadow-[0_0_30px_#69be28] transition transform active:scale-95">
-                    View Live Demo
-                </a>
-                <div class="flex items-center gap-2">
-                    <div class="w-2 h-2 bg-neon rounded-full animate-pulse"></div>
-                    <p class="text-gray-500 text-xs uppercase tracking-widest">Active Deployments in LA</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    <script>
+        document.addEventListener('touchmove', function(e) { e.preventDefault(); }, { passive: false });
 
-    <!-- SERVICES / CAPABILITIES -->
-    <section id="services" class="py-24 bg-[#001b36]">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16">
-                <h2 class="text-neon uppercase tracking-[0.3em] text-xs font-bold mb-4">// CORE CAPABILITIES</h2>
-                <h3 class="text-4xl md:text-5xl font-black italic uppercase">The Interactive Advantage</h3>
-            </div>
+        const canvas = document.getElementById('scratch-canvas');
+        const ctx = canvas.getContext('2d');
+        const gameBox = document.getElementById('game-box');
+        const claimSection = document.getElementById('claim-section');
+        const instruction = document.getElementById('instruction-text');
 
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Service 1 -->
-                <div class="glass-card p-10 rounded-3xl">
-                    <div class="text-neon mb-8">
-                        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-                    </div>
-                    <h4 class="text-2xl font-bold mb-4 uppercase italic text-white">Digital Signage</h4>
-                    <p class="text-gray-400 leading-relaxed text-sm">Replacing static displays with dynamic visual systems that tell your brand's story in real-time.</p>
-                </div>
+        ctx.fillStyle = '#002244';
+        ctx.fillRect(0, 0, 550, 550);
 
-                <!-- Service 2 -->
-                <div class="glass-card p-10 rounded-3xl">
-                    <div class="text-neon mb-8">
-                        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 012-2h10a2 2 0 012 2v14a2 2 0 01-2 2H7a2 2 0 01-2-2V5z"/></svg>
-                    </div>
-                    <h4 class="text-2xl font-bold mb-4 uppercase italic text-white">Interactive Games</h4>
-                    <p class="text-gray-400 leading-relaxed text-sm">Proprietary "No-App" game mechanics that drive instant ROI and prize redemption at the point of sale.</p>
-                </div>
+        const coverImg = new Image();
+        coverImg.crossOrigin = "anonymous";
+        coverImg.src = 'seahawks-cover.png'; 
 
-                <!-- Service 3 -->
-                <div class="glass-card p-10 rounded-3xl">
-                    <div class="text-neon mb-8">
-                        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
-                    </div>
-                    <h4 class="text-2xl font-bold mb-4 uppercase italic text-white">Data Verification</h4>
-                    <p class="text-gray-400 leading-relaxed text-sm">Turning interactions into insights. We capture verified leads and build your marketing lists automatically.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+        coverImg.onload = () => {
+            ctx.clearRect(0, 0, 550, 550);
+            ctx.globalCompositeOperation = 'source-over';
+            ctx.drawImage(coverImg, 0, 0, 550, 550);
+            gameBox.style.visibility = 'visible';
+        };
 
-    <!-- DEMO SECTION -->
-    <section id="demo" class="py-24">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="bg-gradient-to-r from-[#001b36] to-[#002244] rounded-[3rem] p-8 md:p-20 border border-white/5 overflow-hidden relative">
-                <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-neon/10 blur-[100px] rounded-full"></div>
+        function checkProgress() {
+            try {
+                const pixels = ctx.getImageData(0, 0, 550, 550).data;
+                let clear = 0;
+                for (let i = 3; i < pixels.length; i += 4) { if (pixels[i] === 0) clear++; }
                 
-                <div class="flex flex-col md:flex-row items-center gap-12 relative z-10">
-                    <div class="md:w-1/2">
-                        <h2 class="text-4xl md:text-5xl font-black italic uppercase mb-6 leading-tight">Launch the <span class="text-neon">Big Game</span> Experience</h2>
-                        <p class="text-lg text-gray-400 mb-8">
-                            See how we converted game-day excitement into a high-conversion scratch-off game for venues. No friction, just results.
-                        </p>
-                        <!-- Links to your game file -->
-                        <a href="seahawks_index.html" class="inline-block px-8 py-4 bg-neon text-midnight font-black uppercase tracking-tighter rounded-xl hover:scale-105 transition">
-                            Open Interactive Demo
-                        </a>
-                    </div>
-                    <div class="md:w-1/2">
-                        <img src="seahawks-cover.png" alt="Demo Interface" class="rounded-2xl border-2 border-neon/30 shadow-2xl transform rotate-2 hover:rotate-0 transition duration-500">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+                const percentage = (clear / (pixels.length / 4));
+                if (percentage > 0.40) {
+                    canvas.style.transition = "opacity 0.6s ease";
+                    canvas.style.opacity = '0';
+                    setTimeout(() => {
+                        canvas.style.display = 'none';
+                        instruction.style.display = 'none';
+                        claimSection.style.display = 'flex';
+                        claimSection.style.flexDirection = 'column';
+                        claimSection.style.alignItems = 'center';
+                    }, 500);
+                }
+            } catch (e) {
+                console.warn("CORS check blocked.");
+            }
+        }
 
-    <!-- FOOTER -->
-    <footer class="py-20 border-t border-white/5 bg-[#001b36]">
-        <div class="max-w-7xl mx-auto px-6 text-center">
-            <img src="logo.png" alt="ScreenXcel" class="h-12 w-auto mx-auto mb-8 opacity-80">
-            <div class="flex justify-center space-x-12 mb-10 text-[10px] font-bold uppercase tracking-[0.4em] text-gray-500">
-                <a href="https://instagram.com/screenxcel" class="hover:text-neon transition">Instagram</a>
-                <a href="https://ig.me/m/screenxcel" class="hover:text-neon transition">Message</a>
-                <a href="#services" class="hover:text-neon transition">Services</a>
-            </div>
-            <p class="text-gray-600 text-[9px] uppercase tracking-[0.5em]">© 2024 SCREENXCEL | THE DIGITAL ARCHITECTURE AGENCY</p>
-        </div>
-    </footer>
+        function scratch(e) {
+            const r = canvas.getBoundingClientRect();
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            const x = (clientX - r.left) * (550 / r.width);
+            const y = (clientY - r.top) * (550 / r.height);
+            
+            ctx.globalCompositeOperation = 'destination-out';
+            ctx.beginPath(); 
+            ctx.arc(x, y, 45, 0, Math.PI * 2); 
+            ctx.fill();
+            checkProgress();
+        }
 
+        canvas.addEventListener('touchmove', scratch, { passive: false });
+        canvas.addEventListener('mousedown', (e) => {
+             const move = (me) => scratch(me);
+             canvas.addEventListener('mousemove', move);
+             window.addEventListener('mouseup', () => canvas.removeEventListener('mousemove', move), { once: true });
+        });
+    </script>
 </body>
 </html>
