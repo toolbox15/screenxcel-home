@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Success | ScreenXcel</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+body { background-color: #050505; color: #e5e7eb; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+.glass { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
+</style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-6 overflow-hidden">
+
+<!-- Ambient Background -->
+<div class="absolute inset-0 bg-gradient-to-br from-cyan-950/20 to-black z-0"></div>
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-cyan-500/10 blur-[120px] rounded-full z-0"></div>
+
+<div class="max-w-md w-full glass p-12 rounded-[3.5rem] text-center relative z-10 border-glow shadow-2xl">
+    <div class="w-20 h-20 bg-cyan-500/20 rounded-full flex items-center justify-center mx-auto mb-8">
+        <svg class="w-10 h-10 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
+        </svg>
+    </div>
+    
+    <h1 class="text-3xl font-black italic uppercase tracking-tighter mb-4">Connection <span class="text-cyan-400">Initiated</span></h1>
+    <p class="text-gray-400 text-sm font-light leading-relaxed mb-10 italic">
+        Your architectural audit request has been captured. An agent will contact you shortly to finalize deployment details.
+    </p>
+    
+    <a href="index.html" class="inline-block bg-white text-black px-10 py-4 rounded-2xl font-black uppercase text-xs tracking-[0.3em] hover:bg-cyan-400 transition transform active:scale-95 shadow-xl">
+        Return to HQ
+    </a>
+</div>
+
+
+</body>
+</html>
