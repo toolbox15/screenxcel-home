@@ -37,7 +37,7 @@
             box-shadow: 0 50px 100px -20px rgba(0, 0, 0, 0.5), 0 30px 60px -30px rgba(0, 0, 0, 0.6);
         }
         
-        /* Background Carousel Animation */
+        /* Background Carousel Animation - Optimized for 4 Slides (20s Total) */
         .carousel-container {
             position: absolute;
             inset: 0;
@@ -48,7 +48,7 @@
             position: absolute;
             inset: 0;
             opacity: 0;
-            animation: carouselFade 15s infinite;
+            animation: carouselFade 20s infinite;
             background-size: cover;
             background-position: center;
         }
@@ -64,11 +64,15 @@
             animation-delay: 10s; 
             background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('office.jpg'); 
         }
+        .carousel-slide:nth-child(4) { 
+            animation-delay: 15s; 
+            background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('bar-engagement.jpg'); 
+        }
 
         @keyframes carouselFade {
-            0%, 20% { opacity: 0; transform: scale(1.05); }
-            33%, 53% { opacity: 0.4; transform: scale(1); }
-            66%, 100% { opacity: 0; transform: scale(1.05); }
+            0%, 15% { opacity: 0; transform: scale(1.05); }
+            25%, 40% { opacity: 0.4; transform: scale(1); }
+            50%, 100% { opacity: 0; transform: scale(1.05); }
         }
 
         ::-webkit-scrollbar { width: 8px; }
@@ -105,9 +109,10 @@
         </div>
     </nav>
 
-    <!-- Hero Section (Header text and buttons updated for better balance) -->
+    <!-- Hero Section -->
     <header class="relative pt-64 pb-32 px-6 overflow-hidden min-h-screen flex items-center">
         <div class="carousel-container" aria-hidden="true">
+            <div class="carousel-slide"></div>
             <div class="carousel-slide"></div>
             <div class="carousel-slide"></div>
             <div class="carousel-slide"></div>
@@ -118,7 +123,6 @@
             <div class="inline-block px-4 py-2 glass rounded-full text-[10px] font-bold tracking-widest text-cyan-400 uppercase mb-8 border border-cyan-500/20">
                 Digital Signage & Promotional Game Architecture
             </div>
-            <!-- Smaller Header Text for Professional Balance -->
             <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-8 leading-[1.1] uppercase italic">
                 Own the <span class="text-white">Screen.</span> <br>
                 Rule the <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Venue.</span>
@@ -126,7 +130,6 @@
             <p class="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto mb-12 leading-relaxed">
                 High-fidelity <span class="text-white">digital signage promotional games</span> engineered for Restaurants, Bars, and Office Buildings. Generate foot traffic through zero-friction interactive experiences.
             </p>
-            <!-- Scaled Down Hero Buttons -->
             <div class="flex flex-col sm:flex-row justify-center gap-4">
                 <a href="#lab" class="bg-cyan-600 text-white px-8 py-3 rounded-xl font-black shadow-2xl hover:bg-cyan-500 uppercase italic text-base active:scale-95 transition-transform">
                     Test Interactive Demo
@@ -138,7 +141,7 @@
         </div>
     </header>
 
-    <!-- Lab (Iframe Alignment and QR Logic Preserved) -->
+    <!-- Lab (Iframe & QR Logic) -->
     <section id="lab" class="py-32 px-6 bg-[#080808]">
         <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
             <div class="order-2 lg:order-1">
@@ -153,6 +156,7 @@
                             <img src="qrcode.png" alt="Scan to play interactive signage game" class="w-full h-full object-contain">
                         </div>
                         <p class="text-white text-[11px] font-black uppercase tracking-[0.2em]">Scan to play on mobile</p>
+                        <p class="text-cyan-400 text-[10px] mt-2 font-medium italic">Powered by ScreenXcel</p>
                     </div>
 
                     <!-- Iframe shifted up 10% to eliminate gap -->
@@ -198,7 +202,7 @@
         </div>
     </section>
 
-    <!-- Solutions (SEO Rich content) -->
+    <!-- Solutions -->
     <section id="solutions" class="py-32 px-6 border-y border-white/5">
         <div class="max-w-7xl mx-auto text-center mb-20">
             <h2 class="text-5xl font-black italic uppercase tracking-tighter mb-4">Venue Specialization</h2>
@@ -221,14 +225,13 @@
         </div>
     </section>
 
-    <!-- Contact Form (Functional with Formspree) -->
+    <!-- Contact Form -->
     <section id="contact" class="py-32 px-6 bg-black border-t border-white/5">
         <div class="max-w-2xl mx-auto glass p-12 md:p-20 rounded-[3.5rem] border border-white/10 shadow-2xl relative">
             <h2 class="text-4xl font-black mb-4 uppercase italic tracking-tighter text-white">Request an Audit</h2>
             <p class="text-gray-400 text-sm mb-12 font-light italic leading-relaxed">Architecture available for Seattle and Chicago markets.</p>
             
             <form action="https://formspree.io/f/xpqlbkyy" method="POST" class="space-y-6">
-                <!-- Redirect after submission -->
                 <input type="hidden" name="_next" value="https://toolbox15.github.io/seahawks-scratch-game/thanks.html">
                 
                 <div class="grid md:grid-cols-2 gap-6">
@@ -252,7 +255,6 @@
 
     <!-- Footer -->
     <footer class="py-32 bg-black border-t border-white/5 flex flex-col items-center">
-        <!-- Footer Logo Preserved -->
         <img src="logo.png" alt="ScreenXcel | Digital Signage Architectural Experts" class="h-32 w-auto mb-12 opacity-80 hover:scale-110 transition-transform">
         <div class="flex gap-12 mb-12 text-[10px] font-black uppercase tracking-widest text-gray-500">
             <a href="https://instagram.com/screenxcel" class="hover:text-white transition">Instagram</a>
