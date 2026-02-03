@@ -83,18 +83,20 @@
 <body class="selection:bg-cyan-500/30 selection:text-cyan-200">
 
     <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-50 glass border-b border-white/5 py-4">
-        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
-            <div class="flex items-center gap-2">
-                <!-- Adjusted Agency Logo Size -->
-                <img src="logo.png" alt="ScreenXcel" class="h-28 w-auto transition-all hover:scale-105">
+    <nav class="fixed top-0 w-full z-50 glass border-b border-white/5 py-3">
+        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center relative h-12">
+            <div class="flex items-center gap-2 h-full">
+                <!-- Enlarged Logo that overflows the header without expanding the nav height -->
+                <div class="relative w-48 h-full">
+                    <img src="logo.png" alt="ScreenXcel" class="absolute top-1/2 -translate-y-1/2 h-44 w-auto transition-all hover:scale-105 z-50">
+                </div>
             </div>
             <div class="hidden md:flex gap-10 text-sm font-medium text-gray-400 uppercase tracking-widest font-black text-[10px]">
                 <a href="#solutions" class="hover:text-cyan-400 transition">Solutions</a>
                 <a href="#lab" class="hover:text-cyan-400 transition">Interactive Lab</a>
                 <a href="#brand" class="hover:text-cyan-400 transition">Custom Design</a>
             </div>
-            <a href="#contact" class="bg-white text-black px-6 py-3 rounded-full text-[11px] font-black uppercase hover:bg-cyan-400 transition tracking-tighter shadow-lg active:scale-95 transition-transform">Request Audit</a>
+            <a href="#contact" class="bg-white text-black px-6 py-2 rounded-full text-[11px] font-black uppercase hover:bg-cyan-400 transition tracking-tighter shadow-lg active:scale-95 transition-transform">Request Audit</a>
         </div>
     </nav>
 
