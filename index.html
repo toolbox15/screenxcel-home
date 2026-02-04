@@ -8,66 +8,24 @@
     <title>ScreenXcel | Digital Signage Promotional Games & Interactive Architecture</title>
     <meta name="description" content="ScreenXcel engineers high-performance digital signage and interactive promotional games designed to generate foot traffic for restaurants, bars, and office buildings. No-app scratch-offs for modern venues.">
     <meta name="keywords" content="digital signage, promotional games, foot traffic, interactive marketing, hospitality technology, scratch-off games for business, ScreenXcel">
-    <link rel="canonical" href="https://toolbox15.github.io/seahawks-scratch-game/">
-    
-    <!-- Open Graph for Social Sharing -->
-    <meta property="og:title" content="ScreenXcel | Own the Screen, Rule the Venue">
-    <meta property="og:description" content="Turn foot traffic into verified data with interactive digital signage games.">
-    <meta property="og:image" content="logo.png">
+    <link rel="canonical" href="https://toolbox15.github.io/screenxcel-home/">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #050505;
-            color: #e5e7eb;
-        }
-        .glass {
-            background: rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-        .border-glow:hover {
-            border-color: rgba(34, 211, 238, 0.4);
-            box-shadow: 0 0 20px rgba(34, 211, 238, 0.1);
-        }
-        .phone-mockup {
-            box-shadow: 0 50px 100px -20px rgba(0, 0, 0, 0.5), 0 30px 60px -30px rgba(0, 0, 0, 0.6);
-        }
+        body { font-family: 'Inter', sans-serif; background-color: #050505; color: #e5e7eb; }
+        .glass { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .border-glow:hover { border-color: rgba(34, 211, 238, 0.4); box-shadow: 0 0 20px rgba(34, 211, 238, 0.1); }
+        .phone-mockup { box-shadow: 0 50px 100px -20px rgba(0, 0, 0, 0.5), 0 30px 60px -30px rgba(0, 0, 0, 0.6); }
         
-        /* Background Carousel Animation - Optimized for 4 Slides (20s Total) */
-        .carousel-container {
-            position: absolute;
-            inset: 0;
-            z-index: -10;
-            overflow: hidden;
-        }
-        .carousel-slide {
-            position: absolute;
-            inset: 0;
-            opacity: 0;
-            animation: carouselFade 20s infinite;
-            background-size: cover;
-            background-position: center;
-        }
-        .carousel-slide:nth-child(1) { 
-            animation-delay: 0s; 
-            background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('restaurant.jpg'); 
-        }
-        .carousel-slide:nth-child(2) { 
-            animation-delay: 5s; 
-            background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('bar.jpg'); 
-        }
-        .carousel-slide:nth-child(3) { 
-            animation-delay: 10s; 
-            background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('office.jpg'); 
-        }
-        .carousel-slide:nth-child(4) { 
-            animation-delay: 15s; 
-            background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('bar-engagement.jpg'); 
-        }
+        /* 4-Image Hero Carousel (Pointing to images/ folder) */
+        .carousel-container { position: absolute; inset: 0; z-index: -10; overflow: hidden; }
+        .carousel-slide { position: absolute; inset: 0; opacity: 0; animation: carouselFade 20s infinite; background-size: cover; background-position: center; }
+        .carousel-slide:nth-child(1) { animation-delay: 0s; background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('images/restaurant.jpg'); }
+        .carousel-slide:nth-child(2) { animation-delay: 5s; background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('images/bar.jpg'); }
+        .carousel-slide:nth-child(3) { animation-delay: 10s; background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('images/office.jpg'); }
+        .carousel-slide:nth-child(4) { animation-delay: 15s; background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('images/bar-engagement.jpg'); }
 
         @keyframes carouselFade {
             0%, 15% { opacity: 0; transform: scale(1.05); }
@@ -75,18 +33,8 @@
             50%, 100% { opacity: 0; transform: scale(1.05); }
         }
 
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #050505; }
-        ::-webkit-scrollbar-thumb { background: #222; border-radius: 10px; }
-        
-        @media (max-width: 768px) {
-            .mobile-only { display: block; }
-            .desktop-only { display: none; }
-        }
-        @media (min-width: 769px) {
-            .mobile-only { display: none; }
-            .desktop-only { display: flex; }
-        }
+        @media (max-width: 768px) { .desktop-only { display: none; } .mobile-only { display: block; } }
+        @media (min-width: 769px) { .mobile-only { display: none; } .desktop-only { display: flex; } }
     </style>
 </head>
 <body class="selection:bg-cyan-500/30">
@@ -95,9 +43,9 @@
     <nav class="fixed top-0 w-full z-50 glass border-b border-white/5 py-2">
         <div class="max-w-7xl mx-auto px-6 flex justify-between items-center relative h-10">
             <div class="flex items-center h-full">
-                <!-- Massive Overflowing Logo Preserved -->
+                <!-- Massive Overflowing Logo (Path Updated) -->
                 <div class="relative w-56 h-full">
-                    <img src="logo.png" alt="ScreenXcel Digital Architecture Logo" class="absolute top-1/2 -translate-y-1/2 h-64 w-auto z-50 drop-shadow-2xl">
+                    <img src="images/logo.png" alt="ScreenXcel" class="absolute top-1/2 -translate-y-1/2 h-64 w-auto z-50 drop-shadow-2xl">
                 </div>
             </div>
             <div class="hidden md:flex gap-10 text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">
@@ -112,10 +60,7 @@
     <!-- Hero Section -->
     <header class="relative pt-64 pb-32 px-6 overflow-hidden min-h-screen flex items-center">
         <div class="carousel-container" aria-hidden="true">
-            <div class="carousel-slide"></div>
-            <div class="carousel-slide"></div>
-            <div class="carousel-slide"></div>
-            <div class="carousel-slide"></div>
+            <div class="carousel-slide"></div><div class="carousel-slide"></div><div class="carousel-slide"></div><div class="carousel-slide"></div>
         </div>
         <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-cyan-500/10 blur-[180px] rounded-full"></div>
         
@@ -128,20 +73,20 @@
                 Rule the <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Venue.</span>
             </h1>
             <p class="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto mb-12 leading-relaxed">
-                High-fidelity <span class="text-white">digital signage promotional games</span> engineered for Restaurants, Bars, and Office Buildings. Generate foot traffic through zero-friction interactive experiences.
+                High-fidelity <span class="text-white">promotional games</span> engineered for Restaurants, Bars, and Office Buildings. Generate foot traffic through zero-friction interactive experiences.
             </p>
             <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="#lab" class="bg-cyan-600 text-white px-8 py-3 rounded-xl font-black shadow-2xl hover:bg-cyan-500 uppercase italic text-base active:scale-95 transition-transform">
+                <a href="#lab" class="bg-cyan-600 text-white px-8 py-3 rounded-xl font-black shadow-2xl hover:bg-cyan-500 uppercase italic active:scale-95 transition-transform">
                     Test Interactive Demo
                 </a>
-                <a href="#solutions" class="glass px-8 py-3 rounded-xl font-black hover:bg-white/5 uppercase italic text-base border border-white/10 active:scale-95 transition-transform">
+                <a href="#solutions" class="glass px-8 py-3 rounded-xl font-black hover:bg-white/5 uppercase italic border border-white/10 active:scale-95 transition-transform">
                     Explore Solutions
                 </a>
             </div>
         </div>
     </header>
 
-    <!-- Lab (Iframe & QR Logic) -->
+    <!-- Interactive Lab (Pointing to demo.html) -->
     <section id="lab" class="py-32 px-6 bg-[#080808]">
         <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
             <div class="order-2 lg:order-1">
@@ -150,51 +95,49 @@
                         <div class="w-28 h-6 bg-[#262626] rounded-full"></div>
                     </div>
                     
-                    <!-- QR Code (Hidden on Mobile) -->
+                    <!-- QR Code (Path Updated) -->
                     <div class="hidden md:flex absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity z-30 flex-col items-center justify-center text-center p-8 backdrop-blur-sm">
                         <div class="w-44 h-44 bg-white p-3 rounded-2xl mb-6 shadow-2xl">
-                            <img src="qrcode.png" alt="Scan to play interactive signage game" class="w-full h-full object-contain">
+                            <img src="images/qrcode.png" alt="Scan to play" class="w-full h-full object-contain">
                         </div>
                         <p class="text-white text-[11px] font-black uppercase tracking-[0.2em]">Scan to play on mobile</p>
-                        <p class="text-cyan-400 text-[10px] mt-2 font-medium italic">Powered by ScreenXcel</p>
                     </div>
 
-                    <!-- Iframe shifted up 10% to eliminate gap -->
+                    <!-- Iframe container pointed to demo.html -->
                     <div class="w-full h-full bg-neutral-950 relative overflow-hidden">
                         <iframe 
-                            src="https://toolbox15.github.io/seahawks-scratch-game/" 
+                            src="demo.html" 
                             class="absolute w-full h-[110%] -top-[10%]" 
                             frameborder="0"
-                            title="ScreenXcel Seahawks Scratch-off Game Demo"
-                        ></iframe>
+                            title="Interactive Experience"></iframe>
                     </div>
                 </div>
                 
                 <div class="mobile-only mt-10 text-center">
-                    <a href="https://toolbox15.github.io/seahawks-scratch-game/" class="inline-block bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 px-8 py-4 rounded-2xl font-black text-sm uppercase tracking-widest active:scale-95 transition-transform">
+                    <a href="demo.html" class="inline-block bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 px-8 py-4 rounded-2xl font-black text-sm uppercase tracking-widest active:scale-95 transition-transform">
                         Launch Full Screen Experience
                     </a>
                 </div>
             </div>
             
-            <div class="order-1 lg:order-2">
-                <h2 class="text-5xl font-black italic mb-8 uppercase leading-none">The Interactive <span class="text-cyan-500">Lab</span></h2>
+            <div class="order-1 lg:order-2 text-left">
+                <h2 class="text-5xl font-black italic mb-8 uppercase leading-none tracking-tighter">The Interactive <span class="text-cyan-500">Lab</span></h2>
                 <p class="text-gray-400 text-lg mb-10 font-light leading-relaxed">
-                    Our <span class="text-white">promotional games</span> aren't just entertainment—they are data-capture engines. We convert anonymous foot traffic into verified customer data through friction-free mobile engagement.
+                    Our <span class="text-white">promotional games</span> aren't just entertainment—they are data-capture engines. Convert anonymous foot traffic into verified customer data.
                 </p>
                 <div class="space-y-8">
                     <div class="flex gap-6">
-                        <div class="flex-shrink-0 w-14 h-14 glass rounded-2xl flex items-center justify-center text-cyan-400 font-black border border-white/5">01</div>
+                        <div class="flex-shrink-0 w-14 h-14 glass rounded-2xl flex items-center justify-center text-cyan-400 font-black border border-white/5 text-lg">01</div>
                         <div>
                             <h4 class="font-black text-white uppercase text-[11px] tracking-[0.25em] mb-2">Foot Traffic Generation</h4>
-                            <p class="text-gray-400 text-sm font-light leading-relaxed">Drive physical visits using enticing digital signage incentives and prize mechanics.</p>
+                            <p class="text-gray-400 text-sm font-light leading-relaxed">Drive physical visits using enticing digital signage incentives.</p>
                         </div>
                     </div>
                     <div class="flex gap-6">
-                        <div class="flex-shrink-0 w-14 h-14 glass rounded-2xl flex items-center justify-center text-cyan-400 font-black border border-white/5">02</div>
+                        <div class="flex-shrink-0 w-14 h-14 glass rounded-2xl flex items-center justify-center text-cyan-400 font-black border border-white/5 text-lg">02</div>
                         <div>
-                            <h4 class="font-black text-white uppercase text-[11px] tracking-[0.25em] mb-2">Digital Signage ROI</h4>
-                            <p class="text-gray-400 text-sm font-light leading-relaxed">Transform your screens from static displays into measurable marketing assets.</p>
+                            <h4 class="font-black text-white uppercase text-[11px] tracking-[0.25em] mb-2">Zero-Friction Flow</h4>
+                            <p class="text-gray-400 text-sm font-light leading-relaxed">No apps. No friction. Just a scan and a scratch to generate instant ROI.</p>
                         </div>
                     </div>
                 </div>
@@ -202,51 +145,23 @@
         </div>
     </section>
 
-    <!-- Solutions -->
-    <section id="solutions" class="py-32 px-6 border-y border-white/5">
-        <div class="max-w-7xl mx-auto text-center mb-20">
-            <h2 class="text-5xl font-black italic uppercase tracking-tighter mb-4">Venue Specialization</h2>
-            <div class="w-20 h-1 bg-cyan-500 mx-auto rounded-full mb-6"></div>
-            <p class="text-gray-400 font-light text-lg">Targeted digital architecture for diverse high-traffic environments.</p>
-        </div>
-        <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-8">
-            <article class="glass p-10 rounded-[2.5rem] border-glow transition-all duration-500">
-                <h3 class="text-2xl font-black mb-6 text-cyan-400 italic uppercase tracking-tighter">Restaurants & Bars</h3>
-                <p class="text-gray-400 text-sm leading-relaxed font-light">Boost appetizers and drink sales with high-energy "Scratch-for-Rewards" QR mechanics during live sporting events.</p>
-            </article>
-            <article class="glass p-10 rounded-[2.5rem] border-glow transition-all duration-500">
-                <h3 class="text-2xl font-black mb-6 text-cyan-400 italic uppercase tracking-tighter">Office Buildings</h3>
-                <p class="text-gray-400 text-sm leading-relaxed font-light">Engage tenants and visitors with dynamic lobby directories and amenity-focused promotional games.</p>
-            </article>
-            <article class="glass p-10 rounded-[2.5rem] border-glow transition-all duration-500">
-                <h3 class="text-2xl font-black mb-6 text-cyan-400 italic uppercase tracking-tighter">Retail Spaces</h3>
-                <p class="text-gray-400 text-sm leading-relaxed font-light">Rule the mall. Synchronized wall signage and mobile games engineered to stop passersby and drive store entry.</p>
-            </article>
-        </div>
-    </section>
-
-    <!-- Contact Form -->
+    <!-- Form Section -->
     <section id="contact" class="py-32 px-6 bg-black border-t border-white/5">
-        <div class="max-w-2xl mx-auto glass p-12 md:p-20 rounded-[3.5rem] border border-white/10 shadow-2xl relative">
+        <div class="max-w-2xl mx-auto glass p-12 md:p-20 rounded-[3.5rem] border border-white/10 shadow-2xl">
             <h2 class="text-4xl font-black mb-4 uppercase italic tracking-tighter text-white">Request an Audit</h2>
-            <p class="text-gray-400 text-sm mb-12 font-light italic leading-relaxed">Architecture available for Seattle and Chicago markets.</p>
-            
             <form action="https://formspree.io/f/xpqlbkyy" method="POST" class="space-y-6">
-                <input type="hidden" name="_next" value="https://toolbox15.github.io/seahawks-scratch-game/thanks.html">
-                
+                <input type="hidden" name="_next" value="thanks.html">
                 <div class="grid md:grid-cols-2 gap-6">
-                    <input type="text" name="name" placeholder="Full Name" required class="w-full bg-white/5 border border-white/10 p-5 rounded-2xl text-sm focus:outline-none focus:border-cyan-500 text-white">
-                    <select name="venue-type" class="w-full bg-white/5 border border-white/10 p-5 rounded-2xl text-sm focus:outline-none focus:border-cyan-500 text-gray-400">
+                    <input type="text" name="name" placeholder="Full Name" required class="w-full bg-white/5 border border-white/10 p-5 rounded-2xl text-sm text-white focus:outline-none focus:border-cyan-500">
+                    <select name="venue-type" class="w-full bg-white/5 border border-white/10 p-5 rounded-2xl text-sm text-gray-400 focus:outline-none focus:border-cyan-500">
                         <option value="restaurant">Restaurant</option>
-                        <option value="bar">Sports Bar / Pub</option>
+                        <option value="bar">Sports Bar</option>
                         <option value="office">Office Building</option>
-                        <option value="other">Other</option>
                     </select>
                 </div>
-                <input type="email" name="email" placeholder="Email Address" required class="w-full bg-white/5 border border-white/10 p-5 rounded-2xl text-sm focus:outline-none focus:border-cyan-500 text-white">
-                <textarea name="message" placeholder="Describe your project..." rows="5" required class="w-full bg-white/5 border border-white/10 p-5 rounded-2xl text-sm focus:outline-none focus:border-cyan-500 text-white"></textarea>
-                
-                <button type="submit" class="w-full bg-white text-black py-6 rounded-2xl font-black uppercase text-xs tracking-[0.3em] hover:bg-cyan-400 transition transform active:scale-95 shadow-xl">
+                <input type="email" name="email" placeholder="Email Address" required class="w-full bg-white/5 border border-white/10 p-5 rounded-2xl text-sm text-white focus:outline-none focus:border-cyan-500">
+                <textarea name="message" placeholder="Describe your needs..." rows="5" required class="w-full bg-white/5 border border-white/10 p-5 rounded-2xl text-sm text-white focus:outline-none focus:border-cyan-500"></textarea>
+                <button type="submit" class="w-full bg-white text-black py-6 rounded-2xl font-black uppercase text-xs tracking-[0.3em] hover:bg-cyan-400 active:scale-95 transition-transform shadow-xl">
                     Initiate Connection
                 </button>
             </form>
@@ -255,13 +170,10 @@
 
     <!-- Footer -->
     <footer class="py-32 bg-black border-t border-white/5 flex flex-col items-center">
-        <img src="logo.png" alt="ScreenXcel | Digital Signage Architectural Experts" class="h-32 w-auto mb-12 opacity-80 hover:scale-110 transition-transform">
-        <div class="flex gap-12 mb-12 text-[10px] font-black uppercase tracking-widest text-gray-500">
-            <a href="https://instagram.com/screenxcel" class="hover:text-white transition">Instagram</a>
-            <a href="https://ig.me/m/screenxcel" class="hover:text-white transition">Message</a>
-        </div>
-        <p class="text-gray-700 text-[9px] tracking-[0.5em] uppercase italic font-bold">
-            &copy; 2026 SCREENXCEL | DIGITAL SIGNAGE PROMOTIONAL GAMES
+        <!-- Logo (Path Updated) -->
+        <img src="images/logo.png" alt="ScreenXcel" class="h-32 w-auto mb-12 opacity-80 hover:scale-110 transition-transform">
+        <p class="text-gray-700 text-[9px] tracking-[0.5em] uppercase italic font-bold italic">
+            &copy; 2026 SCREENXCEL | DIGITAL ARCHITECTURE FOR VENUES
         </p>
     </footer>
 
