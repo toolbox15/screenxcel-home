@@ -12,54 +12,91 @@
             color: white; display: flex; flex-direction: column; align-items: center; 
             justify-content: center; min-height: 100vh; position: relative;
         }
-        /* Pointing logo to images/ folder */
+        
+        /* Updated paths for branding assets */
         .agency-logo { width: 140px; height: auto; margin-bottom: 10px; }
         .main-header { text-align: center; margin: 0 0 15px 0; font-size: 20px; font-weight: 900; letter-spacing: -1px; text-transform: uppercase; font-style: italic; text-shadow: 0 0 15px rgba(105, 190, 40, 0.8); }
+        
         .container { 
             position: relative; width: 280px; height: 280px; background: rgba(0, 34, 68, 0.8); 
             border: 3px solid #69be28; border-radius: 12px; box-shadow: 0 0 30px rgba(105, 190, 40, 0.5); overflow: hidden;
         }
+        
         #scratch-canvas { position: absolute; top: 0; left: 0; z-index: 10; cursor: crosshair; touch-action: none; width: 100%; height: 100%; }
-        #prize { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 5; background-image: url('images/prize-reveal.gif'); background-position: center; background-size: cover; }
+        
+        /* Path updated to images folder */
+        #prize { 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            z-index: 5; 
+            background-image: url('images/prize-reveal.gif'); 
+            background-position: center; 
+            background-size: cover; 
+        }
+        
         .neon-text { text-align: center; color: #69be28; font-weight: bold; margin-top: 15px; text-transform: uppercase; font-size: 12px; letter-spacing: 2px; }
+        
         #claim-section { display: none; text-align: center; margin-top: 15px; }
+        
+        /* Path updated to images folder */
         #claim-button img { width: 180px; filter: drop-shadow(0 0 15px #69be28); transition: transform 0.2s ease; cursor: pointer; }
     </style>
 </head>
 <body scroll="no">
+    <!-- Path updated to images folder -->
     <img src="images/logo.png" alt="ScreenXcel" class="agency-logo">
+    
     <h1 class="main-header">BIG GAME DAY LX</h1>
+    
     <div class="container">
         <div id="prize"></div>
         <canvas id="scratch-canvas" width="560" height="560"></canvas>
     </div>
+    
     <div id="instruction" class="neon-text">Scratch to Win</div>
+    
     <div id="claim-section">
         <a href="https://ig.me/m/screenxcel?text=I%20WON%20BIG%20GAME%20WINGS!" target="_blank" id="claim-button">
+            <!-- Path updated to images folder -->
             <img src="images/prize-button.png" alt="Claim Prize">
         </a>
     </div>
+    
     <script>
         const canvas = document.getElementById('scratch-canvas');
         const ctx = canvas.getContext('2d');
         const claim = document.getElementById('claim-section');
         const instruction = document.getElementById('instruction');
+        
         ctx.fillStyle = '#002244';
         ctx.fillRect(0, 0, 560, 560);
+        
         const cover = new Image();
         cover.crossOrigin = "anonymous";
+        // Path updated to images folder
         cover.src = 'images/seahawks-cover.png';
-        cover.onload = () => { ctx.drawImage(cover, 0, 0, 560, 560); };
+        
+        cover.onload = () => { 
+            ctx.drawImage(cover, 0, 0, 560, 560); 
+        };
+
         function scratch(e) {
             const r = canvas.getBoundingClientRect();
             const clientX = e.touches ? e.touches[0].clientX : e.clientX;
             const clientY = e.touches ? e.touches[0].clientY : e.clientY;
             const x = (clientX - r.left) * (560 / r.width);
             const y = (clientY - r.top) * (560 / r.height);
+            
             ctx.globalCompositeOperation = 'destination-out';
-            ctx.beginPath(); ctx.arc(x, y, 40, 0, Math.PI * 2); ctx.fill();
+            ctx.beginPath(); 
+            ctx.arc(x, y, 40, 0, Math.PI * 2); 
+            ctx.fill();
             checkProgress();
         }
+
         function checkProgress() {
             const pixels = ctx.getImageData(0, 0, 560, 560).data;
             let clear = 0;
@@ -70,6 +107,7 @@
                 claim.style.display = 'block';
             }
         }
+
         canvas.addEventListener('touchmove', (e) => { e.preventDefault(); scratch(e); }, { passive: false });
         canvas.addEventListener('mousemove', (e) => { if(e.buttons === 1) scratch(e); });
     </script>
