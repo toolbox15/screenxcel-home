@@ -28,11 +28,11 @@
         .carousel-container { position: absolute; inset: 0; z-index: -10; overflow: hidden; }
         .carousel-slide { position: absolute; inset: 0; opacity: 0; animation: carouselFade 20s infinite; background-size: cover; background-position: center; }
         
-        /* Image paths updated to images/ folder */
-        .carousel-slide:nth-child(1) { animation-delay: 0s; background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('images/restaurant.jpg'); }
-        .carousel-slide:nth-child(2) { animation-delay: 5s; background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('images/bar.jpg'); }
-        .carousel-slide:nth-child(3) { animation-delay: 10s; background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('images/office.jpg'); }
-        .carousel-slide:nth-child(4) { animation-delay: 15s; background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('images/bar-engagement.jpg'); }
+        /* Image paths updated to images/ folder - Overlays lightened from 0.7 to 0.6 */
+        .carousel-slide:nth-child(1) { animation-delay: 0s; background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('images/restaurant.jpg'); }
+        .carousel-slide:nth-child(2) { animation-delay: 5s; background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('images/bar.jpg'); }
+        .carousel-slide:nth-child(3) { animation-delay: 10s; background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('images/office.jpg'); }
+        .carousel-slide:nth-child(4) { animation-delay: 15s; background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('images/bar-engagement.jpg'); }
 
         @keyframes carouselFade {
             0%, 15% { opacity: 0; transform: scale(1.05); }
@@ -73,7 +73,8 @@
             <div class="carousel-slide"></div>
             <div class="carousel-slide"></div>
         </div>
-        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-cyan-500/10 blur-[180px] rounded-full"></div>
+        <!-- Ambient Glow lightened by increasing opacity to 20% -->
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-cyan-500/20 blur-[180px] rounded-full"></div>
         
         <div class="max-w-7xl mx-auto text-center relative z-10">
             <div class="inline-block px-4 py-2 glass rounded-full text-[10px] font-bold tracking-widest text-cyan-400 uppercase mb-8 border border-cyan-500/20">
