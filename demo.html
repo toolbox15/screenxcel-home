@@ -6,25 +6,82 @@
     <title>ScreenXcel | Interactive Experience</title>
     <style>
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
         body { 
-            margin: 0; padding: 0; background-color: #002244; overflow: hidden; 
+            margin: 0; padding: 0; 
+            /* Added a high-fidelity stadium background with a dark overlay for focus */
+            background-color: #001122;
+            background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('images/background.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            overflow: hidden; 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
-            color: white; display: flex; flex-direction: column; align-items: center; 
-            justify-content: center; min-height: 100vh; position: relative;
+            color: white; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            min-height: 100vh;
         }
-        
-        /* Updated paths for branding assets */
-        .agency-logo { width: 140px; height: auto; margin-bottom: 10px; }
-        .main-header { text-align: center; margin: 0 0 15px 0; font-size: 20px; font-weight: 900; letter-spacing: -1px; text-transform: uppercase; font-style: italic; text-shadow: 0 0 15px rgba(105, 190, 40, 0.8); }
-        
+
+        /* Dedicated Header Bar for the Logo */
+        /* This ensures the logo always has its intended dark background context */
+        .app-header {
+            width: 100%;
+            background: #050505;
+            padding: 15px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-bottom: 2px solid #69be28;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            z-index: 20;
+        }
+
+        .agency-logo { 
+            width: 120px; 
+            height: auto; 
+            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.1));
+        }
+
+        .main-header { 
+            text-align: center; 
+            margin: 0 0 15px 0; 
+            font-size: 22px; 
+            font-weight: 900; 
+            letter-spacing: -1px; 
+            text-transform: uppercase; 
+            font-style: italic; 
+            color: #ffffff;
+            text-shadow: 0 0 15px rgba(105, 190, 40, 0.6); 
+            z-index: 10;
+        }
+
+        /* Game Square Container */
         .container { 
-            position: relative; width: 280px; height: 280px; background: rgba(0, 34, 68, 0.8); 
-            border: 3px solid #69be28; border-radius: 12px; box-shadow: 0 0 30px rgba(105, 190, 40, 0.5); overflow: hidden;
+            position: relative; 
+            width: 280px; 
+            height: 280px; 
+            background: #001122; 
+            border: 4px solid #69be28; 
+            border-radius: 16px; 
+            box-shadow: 0 0 40px rgba(105, 190, 40, 0.3); 
+            overflow: hidden;
+            z-index: 10;
         }
-        
-        #scratch-canvas { position: absolute; top: 0; left: 0; z-index: 10; cursor: crosshair; touch-action: none; width: 100%; height: 100%; }
-        
-        /* Path updated to images folder */
+
+        #scratch-canvas { 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            z-index: 10; 
+            cursor: crosshair; 
+            touch-action: none; 
+            width: 100%; 
+            height: 100%; 
+        }
+
         #prize { 
             position: absolute; 
             top: 0; 
@@ -36,47 +93,67 @@
             background-position: center; 
             background-size: cover; 
         }
-        
-        .neon-text { text-align: center; color: #69be28; font-weight: bold; margin-top: 15px; text-transform: uppercase; font-size: 12px; letter-spacing: 2px; }
-        
-        #claim-section { display: none; text-align: center; margin-top: 15px; }
-        
-        /* Path updated to images folder */
-        #claim-button img { width: 180px; filter: drop-shadow(0 0 15px #69be28); transition: transform 0.2s ease; cursor: pointer; }
+
+        .neon-text { 
+            text-align: center; 
+            color: #69be28; 
+            font-weight: bold; 
+            margin-top: 20px; 
+            text-transform: uppercase; 
+            font-size: 13px; 
+            letter-spacing: 3px;
+            animation: pulse 1.5s infinite;
+            z-index: 10;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.05); }
+            100% { opacity: 0.6; transform: scale(1); }
+        }
+
+        #claim-section { display: none; text-align: center; margin-top: 20px; z-index: 10; }
+        #claim-button img { 
+            width: 190px; 
+            filter: drop-shadow(0 0 15px #69be28); 
+            transition: transform 0.2s ease; 
+        }
     </style>
 </head>
 <body scroll="no">
-    <!-- Path updated to images folder -->
-    <img src="images/logo.png" alt="ScreenXcel" class="agency-logo">
-    
+
+    <!-- The new App Header solves the shared logo background issue -->
+    <div class="app-header">
+        <img src="images/logo.png" alt="ScreenXcel" class="agency-logo">
+    </div>
+
     <h1 class="main-header">BIG GAME DAY LX</h1>
-    
+
     <div class="container">
         <div id="prize"></div>
         <canvas id="scratch-canvas" width="560" height="560"></canvas>
     </div>
-    
+
     <div id="instruction" class="neon-text">Scratch to Win</div>
-    
+
     <div id="claim-section">
         <a href="https://ig.me/m/screenxcel?text=I%20WON%20BIG%20GAME%20WINGS!" target="_blank" id="claim-button">
-            <!-- Path updated to images folder -->
             <img src="images/prize-button.png" alt="Claim Prize">
         </a>
     </div>
-    
+
     <script>
         const canvas = document.getElementById('scratch-canvas');
         const ctx = canvas.getContext('2d');
         const claim = document.getElementById('claim-section');
         const instruction = document.getElementById('instruction');
-        
+
+        // Fill background while image loads
         ctx.fillStyle = '#002244';
         ctx.fillRect(0, 0, 560, 560);
-        
+
         const cover = new Image();
         cover.crossOrigin = "anonymous";
-        // Path updated to images folder
         cover.src = 'images/seahawks-cover.png';
         
         cover.onload = () => { 
@@ -92,7 +169,7 @@
             
             ctx.globalCompositeOperation = 'destination-out';
             ctx.beginPath(); 
-            ctx.arc(x, y, 40, 0, Math.PI * 2); 
+            ctx.arc(x, y, 45, 0, Math.PI * 2); 
             ctx.fill();
             checkProgress();
         }
