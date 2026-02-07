@@ -10,10 +10,10 @@
         body { 
             margin: 0; padding: 0; 
             background-color: #050505;
-            /* Changed background-size to 100% auto to ensure the full width and text are visible */
+            /* Background set to 100% width, positioned slightly down to clear the agency header */
             background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('images/football-bg.png');
             background-size: 100% auto; 
-            background-position: center top 50px; /* Aligned below the agency header */
+            background-position: center top 50px; 
             background-attachment: fixed;
             background-repeat: no-repeat;
             overflow: hidden; 
@@ -38,12 +38,16 @@
 
         .agency-logo { width: 90px; height: auto; }
 
-        /* Moved the grid up by reducing margin-top from 240px to 170px */
+        /* Container resized to 519x510 (3x173 width, 3x170 height) */
+        /* Pushed down to 240px to reveal background text */
         .container { 
             position: relative; 
-            width: 310px; 
-            height: 310px; 
-            margin-top: 170px; /* Pushed up to clear the bottom and sit better under title */
+            width: 519px; 
+            height: 510px; 
+            max-width: 92vw; /* Ensures it scales down on smaller phones */
+            height: auto;
+            aspect-ratio: 519 / 510;
+            margin-top: 240px; 
             background: transparent; 
             border: 4px solid #69be28; 
             border-radius: 20px; 
@@ -52,7 +56,7 @@
             user-select: none;
         }
 
-        /* Visual Prize Grid: Transparent background */
+        /* Visual Prize Grid */
         #prize-grid { 
             position: absolute; 
             inset: 0;
@@ -68,17 +72,20 @@
             align-items: center;
             justify-content: center;
             border: 1px solid rgba(105, 190, 40, 0.05);
-            padding: 8px; /* Added padding to ensure icons don't bleed out of tab area */
+            padding: 0; 
+            width: 100%;
+            height: 100%;
         }
 
+        /* Icons now fill the 173x170 tab area exactly */
         .grid-cell img { 
-            width: 85%; /* Sized to match the visual area of the silver tabs */
-            height: 85%; 
-            object-fit: contain; 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
             filter: drop-shadow(0 0 10px rgba(0,0,0,0.8));
         }
 
-        /* Scratch Layer: Perfectly overlaid */
+        /* Scratch Layer: Overlaid with matching resolution */
         #scratch-canvas { 
             position: absolute; 
             top: 0; 
@@ -91,7 +98,7 @@
         }
 
         .instruction-pill {
-            margin-top: 30px;
+            margin-top: 25px;
             background: #69be28;
             color: #000;
             padding: 14px 40px;
@@ -144,7 +151,8 @@
 
     <div class="container">
         <div id="prize-grid"></div>
-        <canvas id="scratch-canvas" width="600" height="600"></canvas>
+        <!-- Internal resolution matches exactly 3x173 by 3x170 -->
+        <canvas id="scratch-canvas" width="519" height="510"></canvas>
     </div>
 
     <div id="instruction" class="instruction-pill">Match 3 To Win</div>
@@ -162,18 +170,22 @@
         const instruction = document.getElementById('instruction');
         const prizeGrid = document.getElementById('prize-grid');
 
-        const canvasRes = 600; 
-        const zones = [];
-        const cellSize = canvasRes / 3;
-        const pad = 0; 
+        // Internal resolution constants based on 173x170 tabs
+        const canvasW = 519; 
+        const canvasH = 510;
+        const cellW = 173;
+        const cellH = 170;
 
+        const zones = [];
+
+        // Pre-calculate the 9 zones to match the prize grid icons
         for(let r=0; r<3; r++) {
             for(let c=0; c<3; c++) {
                 zones.push({
-                    x: c * cellSize,
-                    y: r * cellSize,
-                    w: cellSize,
-                    h: cellSize
+                    x: c * cellW,
+                    y: r * cellH,
+                    w: cellW,
+                    h: cellH
                 });
             }
         }
@@ -204,24 +216,21 @@
         const cover = new Image();
         cover.src = 'images/football-cover.png';
         cover.onload = () => { 
-            ctx.drawImage(cover, 0, 0, canvasRes, canvasRes); 
+            ctx.drawImage(cover, 0, 0, canvasW, canvasH); 
         };
-
-        function isInsideTab(x, y) {
-            return zones.some(z => x >= z.x && x <= z.x + z.w && y >= z.y && y <= z.y + z.h);
-        }
 
         function scratch(e) {
             const rect = canvas.getBoundingClientRect();
             const clientX = e.touches ? e.touches[0].clientX : e.clientX;
             const clientY = e.touches ? e.touches[0].clientY : e.clientY;
             
-            const x = (clientX - rect.left) * (canvasRes / rect.width);
-            const y = (clientY - rect.top) * (canvasRes / rect.height);
+            // Map coordinates precisely to the internal 519x510 resolution
+            const x = (clientX - rect.left) * (canvasW / rect.width);
+            const y = (clientY - rect.top) * (canvasH / rect.height);
             
             ctx.globalCompositeOperation = 'destination-out';
             ctx.beginPath(); 
-            ctx.arc(x, y, 48, 0, Math.PI * 2); 
+            ctx.arc(x, y, 45, 0, Math.PI * 2); 
             ctx.fill();
             checkProgress();
         }
@@ -229,10 +238,12 @@
         function checkProgress() {
             let revealedCount = 0;
             zones.forEach(z => {
+                // Check if the center of each of the 9 tabs has been revealed
                 const data = ctx.getImageData(z.x + (z.w/2), z.y + (z.h/2), 1, 1).data;
                 if (data[3] === 0) revealedCount++;
             });
 
+            // Trigger win when 8 of 9 tabs are revealed
             if (revealedCount >= 8) {
                 canvas.style.opacity = '0';
                 canvas.style.pointerEvents = 'none';
