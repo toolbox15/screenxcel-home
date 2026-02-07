@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ScreenXcel | Interactive Experience</title>
+    <title>ScreenXcel | Football Fever Demo</title>
     <style>
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         
         body { 
             margin: 0; padding: 0; 
-            /* Added a high-fidelity stadium background with a dark overlay for focus */
-            background-color: #001122;
-            background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('images/background.png');
+            background-color: #050505;
+            /* Layer 1: Main Stadium Background */
+            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('images/football-bg.png');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -24,53 +24,69 @@
             min-height: 100vh;
         }
 
-        /* Dedicated Header Bar for the Logo */
-        /* This ensures the logo always has its intended dark background context */
+        /* Agency Branding Header */
         .app-header {
             width: 100%;
-            background: #050505;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
             padding: 15px 0;
             display: flex;
             justify-content: center;
-            align-items: center;
             border-bottom: 2px solid #69be28;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-            z-index: 20;
         }
 
-        .agency-logo { 
-            width: 120px; 
-            height: auto; 
-            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.1));
-        }
+        .agency-logo { width: 110px; height: auto; }
 
-        .main-header { 
+        .main-title { 
             text-align: center; 
-            margin: 0 0 15px 0; 
-            font-size: 22px; 
+            margin: 0 0 20px 0; 
+            font-size: 24px; 
             font-weight: 900; 
-            letter-spacing: -1px; 
             text-transform: uppercase; 
             font-style: italic; 
             color: #ffffff;
             text-shadow: 0 0 15px rgba(105, 190, 40, 0.6); 
-            z-index: 10;
         }
 
-        /* Game Square Container */
+        /* The Game Square */
         .container { 
             position: relative; 
-            width: 280px; 
-            height: 280px; 
-            background: #001122; 
-            border: 4px solid #69be28; 
-            border-radius: 16px; 
+            width: 300px; 
+            height: 300px; 
+            background: #000; 
+            border: 3px solid #69be28; 
+            border-radius: 12px; 
             box-shadow: 0 0 40px rgba(105, 190, 40, 0.3); 
             overflow: hidden;
-            z-index: 10;
         }
 
+        /* Dynamic Prize Grid (Behind the scratch layer) */
+        #prize-grid { 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            z-index: 5; 
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            background: #000810;
+        }
+
+        .grid-cell {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(105, 190, 40, 0.1);
+            padding: 10px;
+        }
+
+        .grid-cell img { width: 85%; height: auto; object-fit: contain; }
+
+        /* The Scratch Layer */
         #scratch-canvas { 
             position: absolute; 
             top: 0; 
@@ -82,63 +98,71 @@
             height: 100%; 
         }
 
-        #prize { 
-            position: absolute; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%; 
-            z-index: 5; 
-            background-image: url('images/prize-reveal.gif'); 
-            background-position: center; 
-            background-size: cover; 
-        }
-
-        .neon-text { 
-            text-align: center; 
-            color: #69be28; 
-            font-weight: bold; 
-            margin-top: 20px; 
-            text-transform: uppercase; 
-            font-size: 13px; 
-            letter-spacing: 3px;
-            animation: pulse 1.5s infinite;
-            z-index: 10;
+        .instruction-pill {
+            margin-top: 25px;
+            background: #69be28;
+            color: #000;
+            padding: 12px 30px;
+            border-radius: 99px;
+            font-weight: 900;
+            text-transform: uppercase;
+            font-size: 13px;
+            letter-spacing: 2px;
+            animation: pulse 2s infinite;
         }
 
         @keyframes pulse {
-            0% { opacity: 0.6; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.05); }
-            100% { opacity: 0.6; transform: scale(1); }
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
         }
 
-        #claim-section { display: none; text-align: center; margin-top: 20px; z-index: 10; }
-        #claim-button img { 
-            width: 190px; 
-            filter: drop-shadow(0 0 15px #69be28); 
-            transition: transform 0.2s ease; 
+        /* Win State Section */
+        #claim-section { 
+            display: none; 
+            position: absolute; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%);
+            text-align: center; 
+            width: 90%; 
+            z-index: 30; 
+        }
+
+        .win-btn {
+            background: #ffffff;
+            color: #000;
+            padding: 20px 40px;
+            border-radius: 12px;
+            font-weight: 900;
+            text-decoration: none;
+            text-transform: uppercase;
+            display: inline-block;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
         }
     </style>
 </head>
 <body scroll="no">
 
-    <!-- The new App Header solves the shared logo background issue -->
     <div class="app-header">
         <img src="images/logo.png" alt="ScreenXcel" class="agency-logo">
     </div>
 
-    <h1 class="main-header">BIG GAME DAY LX</h1>
+    <h1 class="main-title">FOOTBALL FEVER</h1>
 
     <div class="container">
-        <div id="prize"></div>
-        <canvas id="scratch-canvas" width="560" height="560"></canvas>
+        <div id="prize-grid"></div>
+        <canvas id="scratch-canvas" width="600" height="600"></canvas>
     </div>
 
-    <div id="instruction" class="neon-text">Scratch to Win</div>
+    <div id="instruction" class="instruction-pill">Match 3 to Win</div>
 
     <div id="claim-section">
-        <a href="https://ig.me/m/screenxcel?text=I%20WON%20BIG%20GAME%20WINGS!" target="_blank" id="claim-button">
-            <img src="images/prize-button.png" alt="Claim Prize">
+        <a href="https://ig.me/m/screenxcel?text=I%20WON%20THE%20FOOTBALL%20FEVER!" class="win-btn">
+            Claim Your Reward
         </a>
     </div>
 
@@ -147,44 +171,98 @@
         const ctx = canvas.getContext('2d');
         const claim = document.getElementById('claim-section');
         const instruction = document.getElementById('instruction');
+        const prizeGrid = document.getElementById('prize-grid');
 
-        // Fill background while image loads
-        ctx.fillStyle = '#002244';
-        ctx.fillRect(0, 0, 560, 560);
+        // 1. Define the Hit-Zones (The 9 tabs)
+        // Only scratches inside these coordinates will count
+        const zones = [];
+        const canvasSize = 600;
+        const cellSize = canvasSize / 3;
+        const pad = 15; // "Dead zone" between tabs to prevent messy scratching
 
+        for(let r=0; r<3; r++) {
+            for(let c=0; c<3; c++) {
+                zones.push({
+                    x: c * cellSize + pad,
+                    y: r * cellSize + pad,
+                    w: cellSize - (pad * 2),
+                    h: cellSize - (pad * 2)
+                });
+            }
+        }
+
+        // 2. Setup Shuffled Prizes
+        function setupPrizes() {
+            const items = [
+                'images/icon-win.png', 'images/icon-win.png', 'images/icon-win.png',
+                'images/icon-lose.png', 'images/icon-lose.png', 'images/icon-lose.png',
+                'images/icon-lose.png', 'images/icon-lose.png', 'images/icon-lose.png'
+            ];
+            
+            // Randomize array
+            for (let i = items.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [items[i], items[j]] = [items[j], items[i]];
+            }
+
+            items.forEach(src => {
+                const cell = document.createElement('div');
+                cell.className = 'grid-cell';
+                const img = document.createElement('img');
+                img.src = src;
+                cell.appendChild(img);
+                prizeGrid.appendChild(cell);
+            });
+        }
+
+        // 3. Load the Scratch Cover
         const cover = new Image();
-        cover.crossOrigin = "anonymous";
-        cover.src = 'images/seahawks-cover.png';
-        
-        cover.onload = () => { 
-            ctx.drawImage(cover, 0, 0, 560, 560); 
-        };
+        cover.src = 'images/football-cover.png';
+        cover.onload = () => { ctx.drawImage(cover, 0, 0, 600, 600); };
+
+        // 4. Scratch Interaction Logic
+        function isInsideTab(x, y) {
+            return zones.some(z => x >= z.x && x <= z.x + z.w && y >= z.y && y <= z.y + z.h);
+        }
 
         function scratch(e) {
             const r = canvas.getBoundingClientRect();
             const clientX = e.touches ? e.touches[0].clientX : e.clientX;
             const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-            const x = (clientX - r.left) * (560 / r.width);
-            const y = (clientY - r.top) * (560 / r.height);
             
-            ctx.globalCompositeOperation = 'destination-out';
-            ctx.beginPath(); 
-            ctx.arc(x, y, 45, 0, Math.PI * 2); 
-            ctx.fill();
-            checkProgress();
+            const x = (clientX - r.left) * (600 / r.width);
+            const y = (clientY - r.top) * (600 / r.height);
+            
+            // Limit scratching strictly to the 9 tabs
+            if (isInsideTab(x, y)) {
+                ctx.globalCompositeOperation = 'destination-out';
+                ctx.beginPath(); 
+                ctx.arc(x, y, 35, 0, Math.PI * 2); 
+                ctx.fill();
+                checkProgress();
+            }
         }
 
         function checkProgress() {
-            const pixels = ctx.getImageData(0, 0, 560, 560).data;
-            let clear = 0;
-            for (let i = 3; i < pixels.length; i += 4) { if (pixels[i] === 0) clear++; }
-            if (clear / (pixels.length / 4) > 0.45) {
-                canvas.style.display = 'none';
+            let revealedCount = 0;
+            zones.forEach(z => {
+                // Check if the center of each tab is transparent
+                const data = ctx.getImageData(z.x + (z.w/2), z.y + (z.h/2), 1, 1).data;
+                if (data[3] === 0) revealedCount++;
+            });
+
+            // Once 8 of 9 tabs are revealed, trigger win
+            if (revealedCount >= 8) {
+                canvas.style.opacity = '0';
+                canvas.style.pointerEvents = 'none';
+                canvas.style.transition = 'opacity 0.8s ease';
                 instruction.style.display = 'none';
                 claim.style.display = 'block';
             }
         }
 
+        // Start
+        setupPrizes();
         canvas.addEventListener('touchmove', (e) => { e.preventDefault(); scratch(e); }, { passive: false });
         canvas.addEventListener('mousemove', (e) => { if(e.buttons === 1) scratch(e); });
     </script>
