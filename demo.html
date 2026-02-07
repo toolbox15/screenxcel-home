@@ -12,7 +12,7 @@
             background-color: #050505;
             background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('images/football-bg.png');
             background-size: 100% auto; 
-            background-position: center top 5%; /* Moved background down 5% */
+            background-position: center top 8%; /* Moved background down an additional 3% (from 5% to 8%) */
             background-attachment: fixed;
             background-repeat: no-repeat;
             overflow: hidden; 
@@ -24,7 +24,7 @@
             min-height: 100vh;
         }
 
-        /* Decorative football icon positioned below background text - Moved down by an additional 5vh */
+        /* Decorative football icon positioned below background text */
         .deco-football {
             width: 70px;
             height: auto;
@@ -114,13 +114,7 @@
             box-shadow: 0 10px 30px rgba(105, 190, 40, 0.3);
         }
 
-        .attempts-text {
-            font-weight: 800;
-            text-transform: uppercase;
-            font-size: 11px;
-            color: #69be28;
-            letter-spacing: 2px;
-        }
+        /* Removed turns counter styling as the element is removed */
 
         #win-modal {
             display: none;
@@ -213,7 +207,7 @@
 
     <div class="status-bar" id="status-bar">
         <div id="instruction" class="instruction-pill">Match 3 To Win</div>
-        <div class="attempts-text" id="attempts-display">Turns Left: 3</div>
+        <!-- Removed "Turns Left" UI element -->
     </div>
 
     <div id="win-modal">
@@ -237,7 +231,6 @@
         const ctx = canvas.getContext('2d');
         const winModal = document.getElementById('win-modal');
         const gameOverSection = document.getElementById('game-over-section');
-        const attemptsDisplay = document.getElementById('attempts-display');
         const prizeGrid = document.getElementById('prize-grid');
         const statusBar = document.getElementById('status-bar');
 
@@ -364,7 +357,7 @@
         function revealCell(index) {
             revealedIndices.add(index);
             attemptsLeft--;
-            attemptsDisplay.innerText = `Turns Left: ${attemptsLeft}`;
+            // Removed internal UI update for turns left
 
             const zone = zones[index];
             ctx.globalCompositeOperation = 'destination-out';
