@@ -10,8 +10,7 @@
         body { 
             margin: 0; padding: 0; 
             background-color: #050505;
-            /* Layer 1: Main Stadium Background */
-            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('images/football-bg.png');
+            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('images/football-bg.png');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -24,51 +23,49 @@
             min-height: 100vh;
         }
 
-        /* Agency Branding Header */
         .app-header {
             width: 100%;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.95);
             backdrop-filter: blur(10px);
-            padding: 15px 0;
+            padding: 10px 0;
             display: flex;
             justify-content: center;
             border-bottom: 2px solid #69be28;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            margin-bottom: 20px;
+            z-index: 50;
         }
 
-        .agency-logo { width: 110px; height: auto; }
+        .agency-logo { width: 90px; height: auto; }
 
         .main-title { 
             text-align: center; 
-            margin: 0 0 20px 0; 
-            font-size: 24px; 
+            margin: 10px 0 20px 0; 
+            font-size: 28px; 
             font-weight: 900; 
             text-transform: uppercase; 
             font-style: italic; 
             color: #ffffff;
-            text-shadow: 0 0 15px rgba(105, 190, 40, 0.6); 
+            letter-spacing: -1px;
+            text-shadow: 0 0 20px rgba(105, 190, 40, 0.8); 
         }
 
-        /* The Game Square */
+        /* Fixed Square Container to prevent alignment drift */
         .container { 
             position: relative; 
-            width: 300px; 
-            height: 300px; 
+            width: 310px; 
+            height: 310px; 
             background: #000; 
-            border: 3px solid #69be28; 
-            border-radius: 12px; 
-            box-shadow: 0 0 40px rgba(105, 190, 40, 0.3); 
+            border: 4px solid #69be28; 
+            border-radius: 20px; 
+            box-shadow: 0 0 40px rgba(105, 190, 40, 0.4); 
             overflow: hidden;
+            user-select: none;
         }
 
-        /* Dynamic Prize Grid (Behind the scratch layer) */
+        /* Visual Prize Grid */
         #prize-grid { 
             position: absolute; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%; 
+            inset: 0;
             z-index: 5; 
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -80,44 +77,49 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 1px solid rgba(105, 190, 40, 0.1);
-            padding: 10px;
+            border: 1px solid rgba(105, 190, 40, 0.15);
+            padding: 12px;
         }
 
-        .grid-cell img { width: 85%; height: auto; object-fit: contain; }
+        .grid-cell img { 
+            width: 90%; 
+            height: 90%; 
+            object-fit: contain; 
+            filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
+        }
 
-        /* The Scratch Layer */
+        /* Scratch Layer: Perfectly overlaid */
         #scratch-canvas { 
             position: absolute; 
             top: 0; 
             left: 0; 
+            width: 100%; 
+            height: 100%; 
             z-index: 10; 
             cursor: crosshair; 
             touch-action: none; 
-            width: 100%; 
-            height: 100%; 
         }
 
         .instruction-pill {
-            margin-top: 25px;
+            margin-top: 30px;
             background: #69be28;
             color: #000;
-            padding: 12px 30px;
+            padding: 14px 40px;
             border-radius: 99px;
             font-weight: 900;
             text-transform: uppercase;
-            font-size: 13px;
-            letter-spacing: 2px;
+            font-size: 15px;
+            letter-spacing: 1px;
+            box-shadow: 0 10px 30px rgba(105, 190, 40, 0.4);
             animation: pulse 2s infinite;
         }
 
         @keyframes pulse {
-            0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.05); opacity: 0.8; }
-            100% { transform: scale(1); opacity: 1; }
+            0% { transform: scale(1); box-shadow: 0 0 20px rgba(105, 190, 40, 0.4); }
+            50% { transform: scale(1.05); box-shadow: 0 0 40px rgba(105, 190, 40, 0.6); }
+            100% { transform: scale(1); box-shadow: 0 0 20px rgba(105, 190, 40, 0.4); }
         }
 
-        /* Win State Section */
         #claim-section { 
             display: none; 
             position: absolute; 
@@ -125,23 +127,22 @@
             left: 50%; 
             transform: translate(-50%, -50%);
             text-align: center; 
-            width: 90%; 
-            z-index: 30; 
+            width: 100%; 
+            z-index: 100; 
         }
 
         .win-btn {
             background: #ffffff;
             color: #000;
-            padding: 20px 40px;
-            border-radius: 12px;
+            padding: 22px 45px;
+            border-radius: 16px;
             font-weight: 900;
             text-decoration: none;
             text-transform: uppercase;
             display: inline-block;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.9);
+            font-size: 18px;
+            border: 2px solid #69be28;
         }
     </style>
 </head>
@@ -155,10 +156,11 @@
 
     <div class="container">
         <div id="prize-grid"></div>
+        <!-- Internal resolution matches logic -->
         <canvas id="scratch-canvas" width="600" height="600"></canvas>
     </div>
 
-    <div id="instruction" class="instruction-pill">Match 3 to Win</div>
+    <div id="instruction" class="instruction-pill">Match 3 To Win</div>
 
     <div id="claim-section">
         <a href="https://ig.me/m/screenxcel?text=I%20WON%20THE%20FOOTBALL%20FEVER!" class="win-btn">
@@ -173,13 +175,12 @@
         const instruction = document.getElementById('instruction');
         const prizeGrid = document.getElementById('prize-grid');
 
-        // 1. Define the Hit-Zones (The 9 tabs)
-        // Only scratches inside these coordinates will count
+        const canvasRes = 600; // Internal coordinate system
         const zones = [];
-        const canvasSize = 600;
-        const cellSize = canvasSize / 3;
-        const pad = 15; // "Dead zone" between tabs to prevent messy scratching
+        const cellSize = canvasRes / 3;
+        const pad = 10; // Hitbox margin
 
+        // Pre-calculate the 9 grid zones for the 600x600 canvas
         for(let r=0; r<3; r++) {
             for(let c=0; c<3; c++) {
                 zones.push({
@@ -191,15 +192,14 @@
             }
         }
 
-        // 2. Setup Shuffled Prizes
         function setupPrizes() {
+            prizeGrid.innerHTML = '';
             const items = [
                 'images/icon-win.png', 'images/icon-win.png', 'images/icon-win.png',
                 'images/icon-lose.png', 'images/icon-lose.png', 'images/icon-lose.png',
                 'images/icon-lose.png', 'images/icon-lose.png', 'images/icon-lose.png'
             ];
             
-            // Randomize array
             for (let i = items.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [items[i], items[j]] = [items[j], items[i]];
@@ -215,29 +215,29 @@
             });
         }
 
-        // 3. Load the Scratch Cover
         const cover = new Image();
         cover.src = 'images/football-cover.png';
-        cover.onload = () => { ctx.drawImage(cover, 0, 0, 600, 600); };
+        cover.onload = () => { 
+            ctx.drawImage(cover, 0, 0, canvasRes, canvasRes); 
+        };
 
-        // 4. Scratch Interaction Logic
         function isInsideTab(x, y) {
             return zones.some(z => x >= z.x && x <= z.x + z.w && y >= z.y && y <= z.y + z.h);
         }
 
         function scratch(e) {
-            const r = canvas.getBoundingClientRect();
+            const rect = canvas.getBoundingClientRect();
             const clientX = e.touches ? e.touches[0].clientX : e.clientX;
             const clientY = e.touches ? e.touches[0].clientY : e.clientY;
             
-            const x = (clientX - r.left) * (600 / r.width);
-            const y = (clientY - r.top) * (600 / r.height);
+            // Map screen touch to 600x600 internal canvas resolution
+            const x = (clientX - rect.left) * (canvasRes / rect.width);
+            const y = (clientY - rect.top) * (canvasRes / rect.height);
             
-            // Limit scratching strictly to the 9 tabs
             if (isInsideTab(x, y)) {
                 ctx.globalCompositeOperation = 'destination-out';
                 ctx.beginPath(); 
-                ctx.arc(x, y, 35, 0, Math.PI * 2); 
+                ctx.arc(x, y, 45, 0, Math.PI * 2); 
                 ctx.fill();
                 checkProgress();
             }
@@ -246,12 +246,12 @@
         function checkProgress() {
             let revealedCount = 0;
             zones.forEach(z => {
-                // Check if the center of each tab is transparent
+                // Sampling the center of each of the 9 tabs
                 const data = ctx.getImageData(z.x + (z.w/2), z.y + (z.h/2), 1, 1).data;
                 if (data[3] === 0) revealedCount++;
             });
 
-            // Once 8 of 9 tabs are revealed, trigger win
+            // Trigger win when 8 of 9 tabs are mostly cleared
             if (revealedCount >= 8) {
                 canvas.style.opacity = '0';
                 canvas.style.pointerEvents = 'none';
@@ -261,7 +261,6 @@
             }
         }
 
-        // Start
         setupPrizes();
         canvas.addEventListener('touchmove', (e) => { e.preventDefault(); scratch(e); }, { passive: false });
         canvas.addEventListener('mousemove', (e) => { if(e.buttons === 1) scratch(e); });
