@@ -24,6 +24,22 @@
             min-height: 100vh;
         }
 
+        /* Decorative football icon positioned below background text */
+        .deco-football {
+            width: 70px;
+            height: auto;
+            margin-top: 155px; /* Adjusted to sit right under "MATCH 3 TO WIN" */
+            margin-bottom: 10px;
+            filter: drop-shadow(0 0 15px rgba(105, 190, 40, 0.6));
+            z-index: 20;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
         .container { 
             position: relative; 
             width: 519px; 
@@ -31,7 +47,8 @@
             max-width: 92vw;
             height: auto;
             aspect-ratio: 519 / 510;
-            margin-top: 180px; 
+            /* Margin removed here because .deco-football handles the vertical push */
+            margin-top: 0; 
             background: transparent; 
             border: 4px solid #69be28; 
             border-radius: 12px; 
@@ -106,7 +123,6 @@
             letter-spacing: 2px;
         }
 
-        /* NEW: Custom Win Modal Styles */
         #win-modal {
             display: none;
             position: fixed;
@@ -167,9 +183,6 @@
             transition: transform 0.2s ease;
         }
 
-        .claim-btn:active { transform: scale(0.95); }
-
-        /* Game Over Section */
         #game-over-section { 
             display: none; 
             position: absolute; 
@@ -191,6 +204,9 @@
 </head>
 <body scroll="no">
 
+    <!-- Decoration image to sit below background text -->
+    <img src="images/football.png" alt="" class="deco-football">
+
     <div class="container">
         <div id="prize-grid"></div>
         <canvas id="scratch-canvas" width="519" height="510"></canvas>
@@ -201,7 +217,6 @@
         <div class="attempts-text" id="attempts-display">Turns Left: 3</div>
     </div>
 
-    <!-- WIN PROMPT MODAL -->
     <div id="win-modal">
         <div class="modal-content">
             <h2 class="modal-title">WINNER!</h2>
@@ -228,7 +243,7 @@
         const statusBar = document.getElementById('status-bar');
 
         const STORAGE_KEY = 'screenxcel_football_session';
-        const COOLDOWN_MS = 60 * 60 * 1000; // 1 Hour
+        const COOLDOWN_MS = 60 * 60 * 1000; 
 
         const canvasW = 519; 
         const canvasH = 510;
@@ -265,6 +280,7 @@
                         isGameOver = true;
                         canvas.style.display = 'none';
                         statusBar.style.display = 'none';
+                        document.querySelector('.deco-football').style.display = 'none';
                         if (session.status === 'win') {
                             winModal.style.display = 'flex';
                         } else {
@@ -372,6 +388,7 @@
                     canvas.style.pointerEvents = 'none';
                     canvas.style.transition = 'opacity 0.6s ease';
                     statusBar.style.display = 'none';
+                    document.querySelector('.deco-football').style.display = 'none';
                     winModal.style.display = 'flex';
                 }, 400);
             } else if (attemptsLeft === 0) {
@@ -381,6 +398,7 @@
                 setTimeout(() => {
                     canvas.style.opacity = '0.3';
                     statusBar.style.display = 'none';
+                    document.querySelector('.deco-football').style.display = 'none';
                     gameOverSection.style.display = 'block';
                 }, 400);
             }
