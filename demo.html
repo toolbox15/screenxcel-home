@@ -10,7 +10,7 @@
         body { 
             margin: 0; padding: 0; 
             background-color: #050505;
-            /* Background set to 100% width, positioned slightly down to clear the agency header */
+            /* Background alignment: Text is at the top, grid follows below */
             background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('images/football-bg.png');
             background-size: 100% auto; 
             background-position: center top 50px; 
@@ -38,30 +38,30 @@
 
         .agency-logo { width: 90px; height: auto; }
 
-        /* Container resized to 519x510 (3x173 width, 3x170 height) */
-        /* Pushed down to 240px to reveal background text */
+        /* Fixed Dimensions: 3 columns of 173px (519px) and 3 rows of 170px (510px) */
         .container { 
             position: relative; 
             width: 519px; 
             height: 510px; 
-            max-width: 92vw; /* Ensures it scales down on smaller phones */
+            /* Responsive scaling for mobile */
+            max-width: 92vw;
             height: auto;
             aspect-ratio: 519 / 510;
             margin-top: 240px; 
             background: transparent; 
             border: 4px solid #69be28; 
-            border-radius: 20px; 
-            box-shadow: 0 0 40px rgba(105, 190, 40, 0.4); 
+            border-radius: 12px; 
+            box-shadow: 0 0 50px rgba(105, 190, 40, 0.4); 
             overflow: hidden;
             user-select: none;
         }
 
-        /* Visual Prize Grid */
         #prize-grid { 
             position: absolute; 
             inset: 0;
             z-index: 5; 
             display: grid;
+            /* Explicitly define the 173x170 cells */
             grid-template-columns: repeat(3, 1fr);
             grid-template-rows: repeat(3, 1fr);
             background: transparent;
@@ -71,13 +71,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 1px solid rgba(105, 190, 40, 0.05);
-            padding: 0; 
+            border: 1px solid rgba(105, 190, 40, 0.1);
             width: 100%;
             height: 100%;
+            padding: 0;
+            overflow: hidden;
         }
 
-        /* Icons now fill the 173x170 tab area exactly */
+        /* Match win/loss icons exactly to the tab size */
         .grid-cell img { 
             width: 100%; 
             height: 100%; 
@@ -85,7 +86,7 @@
             filter: drop-shadow(0 0 10px rgba(0,0,0,0.8));
         }
 
-        /* Scratch Layer: Overlaid with matching resolution */
+        /* Scratch Layer: Overlaid with matching resolution for precise hit-testing */
         #scratch-canvas { 
             position: absolute; 
             top: 0; 
@@ -93,31 +94,39 @@
             width: 100%; 
             height: 100%; 
             z-index: 10; 
-            cursor: crosshair; 
+            cursor: pointer; 
             touch-action: none; 
         }
 
+        .status-bar {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
         .instruction-pill {
-            margin-top: 25px;
             background: #69be28;
             color: #000;
-            padding: 14px 40px;
+            padding: 12px 40px;
             border-radius: 99px;
             font-weight: 900;
             text-transform: uppercase;
-            font-size: 15px;
+            font-size: 14px;
             letter-spacing: 1px;
-            box-shadow: 0 10px 30px rgba(105, 190, 40, 0.4);
-            animation: pulse 2s infinite;
+            box-shadow: 0 10px 30px rgba(105, 190, 40, 0.3);
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 0 20px rgba(105, 190, 40, 0.4); }
-            50% { transform: scale(1.05); box-shadow: 0 0 40px rgba(105, 190, 40, 0.6); }
-            100% { transform: scale(1); box-shadow: 0 0 20px rgba(105, 190, 40, 0.4); }
+        .attempts-text {
+            font-weight: 800;
+            text-transform: uppercase;
+            font-size: 11px;
+            color: #69be28;
+            letter-spacing: 2px;
         }
 
-        #claim-section { 
+        #game-over-section, #claim-section { 
             display: none; 
             position: absolute; 
             top: 50%; 
@@ -128,11 +137,11 @@
             z-index: 100; 
         }
 
-        .win-btn {
+        .btn {
             background: #ffffff;
             color: #000;
-            padding: 22px 45px;
-            border-radius: 16px;
+            padding: 20px 45px;
+            border-radius: 12px;
             font-weight: 900;
             text-decoration: none;
             text-transform: uppercase;
@@ -140,6 +149,14 @@
             box-shadow: 0 20px 50px rgba(0,0,0,0.9);
             font-size: 18px;
             border: 2px solid #69be28;
+            cursor: pointer;
+        }
+
+        .btn-retry {
+            background: #222;
+            color: #fff;
+            border-color: #444;
+            margin-top: 15px;
         }
     </style>
 </head>
@@ -151,34 +168,48 @@
 
     <div class="container">
         <div id="prize-grid"></div>
-        <!-- Internal resolution matches exactly 3x173 by 3x170 -->
+        <!-- Internal resolution matches our 3x173 width and 3x170 height logic -->
         <canvas id="scratch-canvas" width="519" height="510"></canvas>
     </div>
 
-    <div id="instruction" class="instruction-pill">Match 3 To Win</div>
+    <div class="status-bar" id="status-bar">
+        <div id="instruction" class="instruction-pill">Match 3 To Win</div>
+        <div class="attempts-text" id="attempts-display">Turns Left: 3</div>
+    </div>
 
     <div id="claim-section">
-        <a href="https://ig.me/m/screenxcel?text=I%20WON%20THE%20FOOTBALL%20FEVER!" class="win-btn">
+        <h2 style="font-style: italic; font-weight: 900; margin-bottom: 20px; text-shadow: 0 0 20px #69be28; font-size: 32px;">TOUCHDOWN!</h2>
+        <a href="https://ig.me/m/screenxcel?text=I%20FOUND%20ALL%203%20FOOTBALLS!" class="btn">
             Claim Your Reward
         </a>
+    </div>
+
+    <div id="game-over-section">
+        <h2 style="font-style: italic; font-weight: 900; margin-bottom: 20px; color: #ff4444; font-size: 32px;">TURNOVER!</h2>
+        <div class="btn btn-retry" onclick="location.reload()">Try Again</div>
     </div>
 
     <script>
         const canvas = document.getElementById('scratch-canvas');
         const ctx = canvas.getContext('2d');
-        const claim = document.getElementById('claim-section');
-        const instruction = document.getElementById('instruction');
+        const claimSection = document.getElementById('claim-section');
+        const gameOverSection = document.getElementById('game-over-section');
+        const attemptsDisplay = document.getElementById('attempts-display');
         const prizeGrid = document.getElementById('prize-grid');
 
-        // Internal resolution constants based on 173x170 tabs
         const canvasW = 519; 
         const canvasH = 510;
         const cellW = 173;
         const cellH = 170;
 
-        const zones = [];
+        let attemptsLeft = 3;
+        let winsFound = 0;
+        let revealedIndices = new Set();
+        let isGameOver = false;
 
-        // Pre-calculate the 9 zones to match the prize grid icons
+        const zones = [];
+        const prizeData = []; 
+
         for(let r=0; r<3; r++) {
             for(let c=0; c<3; c++) {
                 zones.push({
@@ -193,9 +224,15 @@
         function setupPrizes() {
             prizeGrid.innerHTML = '';
             const items = [
-                'images/icon-win.png', 'images/icon-win.png', 'images/icon-win.png',
-                'images/icon-lose.png', 'images/icon-lose.png', 'images/icon-lose.png',
-                'images/icon-lose.png', 'images/icon-lose.png', 'images/icon-lose.png'
+                { type: 'win', src: 'images/icon-win.png' },
+                { type: 'win', src: 'images/icon-win.png' },
+                { type: 'win', src: 'images/icon-win.png' },
+                { type: 'lose', src: 'images/icon-lose.png' },
+                { type: 'lose', src: 'images/icon-lose.png' },
+                { type: 'lose', src: 'images/icon-lose.png' },
+                { type: 'lose', src: 'images/icon-lose.png' },
+                { type: 'lose', src: 'images/icon-lose.png' },
+                { type: 'lose', src: 'images/icon-lose.png' }
             ];
             
             for (let i = items.length - 1; i > 0; i--) {
@@ -203,11 +240,12 @@
                 [items[i], items[j]] = [items[j], items[i]];
             }
 
-            items.forEach(src => {
+            items.forEach((item, i) => {
+                prizeData[i] = item.type;
                 const cell = document.createElement('div');
                 cell.className = 'grid-cell';
                 const img = document.createElement('img');
-                img.src = src;
+                img.src = item.src;
                 cell.appendChild(img);
                 prizeGrid.appendChild(cell);
             });
@@ -219,45 +257,72 @@
             ctx.drawImage(cover, 0, 0, canvasW, canvasH); 
         };
 
-        function scratch(e) {
+        function getCellIndex(x, y) {
+            const col = Math.floor(x / cellW);
+            const row = Math.floor(y / cellH);
+            if (col >= 0 && col < 3 && row >= 0 && row < 3) {
+                return row * 3 + col;
+            }
+            return -1;
+        }
+
+        function handleInteraction(e) {
+            if (isGameOver || attemptsLeft <= 0) return;
+
             const rect = canvas.getBoundingClientRect();
-            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            const clientX = (e.touches ? e.touches[0].clientX : e.clientX);
+            const clientY = (e.touches ? e.touches[0].clientY : e.clientY);
             
-            // Map coordinates precisely to the internal 519x510 resolution
             const x = (clientX - rect.left) * (canvasW / rect.width);
             const y = (clientY - rect.top) * (canvasH / rect.height);
             
-            ctx.globalCompositeOperation = 'destination-out';
-            ctx.beginPath(); 
-            ctx.arc(x, y, 45, 0, Math.PI * 2); 
-            ctx.fill();
-            checkProgress();
+            const index = getCellIndex(x, y);
+            
+            if (index !== -1 && !revealedIndices.has(index)) {
+                revealCell(index);
+            }
         }
 
-        function checkProgress() {
-            let revealedCount = 0;
-            zones.forEach(z => {
-                // Check if the center of each of the 9 tabs has been revealed
-                const data = ctx.getImageData(z.x + (z.w/2), z.y + (z.h/2), 1, 1).data;
-                if (data[3] === 0) revealedCount++;
-            });
+        function revealCell(index) {
+            revealedIndices.add(index);
+            attemptsLeft--;
+            attemptsDisplay.innerText = `Turns Left: ${attemptsLeft}`;
 
-            // Trigger win when 8 of 9 tabs are revealed
-            if (revealedCount >= 8) {
-                canvas.style.opacity = '0';
-                canvas.style.pointerEvents = 'none';
-                canvas.style.transition = 'opacity 0.8s ease';
-                instruction.style.display = 'none';
-                claim.style.display = 'block';
+            const zone = zones[index];
+            ctx.globalCompositeOperation = 'destination-out';
+            ctx.fillRect(zone.x, zone.y, zone.w, zone.h);
+
+            if (prizeData[index] === 'win') {
+                winsFound++;
+            }
+
+            checkGameState();
+        }
+
+        function checkGameState() {
+            if (winsFound === 3) {
+                isGameOver = true;
+                setTimeout(() => {
+                    canvas.style.opacity = '0';
+                    canvas.style.pointerEvents = 'none';
+                    canvas.style.transition = 'opacity 0.6s ease';
+                    document.getElementById('status-bar').style.display = 'none';
+                    claimSection.style.display = 'block';
+                }, 400);
+            } else if (attemptsLeft === 0) {
+                isGameOver = true;
+                setTimeout(() => {
+                    canvas.style.opacity = '0.3';
+                    document.getElementById('status-bar').style.display = 'none';
+                    gameOverSection.style.display = 'block';
+                }, 400);
             }
         }
 
         setupPrizes();
-        canvas.addEventListener('touchstart', (e) => { scratch(e); }, { passive: false });
-        canvas.addEventListener('touchmove', (e) => { e.preventDefault(); scratch(e); }, { passive: false });
-        canvas.addEventListener('mousedown', (e) => { if(e.buttons === 1) scratch(e); });
-        canvas.addEventListener('mousemove', (e) => { if(e.buttons === 1) scratch(e); });
+
+        canvas.addEventListener('touchstart', (e) => { e.preventDefault(); handleInteraction(e); }, { passive: false });
+        canvas.addEventListener('mousedown', (e) => { handleInteraction(e); });
     </script>
 </body>
 </html>
