@@ -10,9 +10,9 @@
         body { 
             margin: 0; padding: 0; 
             background-color: #050505;
-            background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('images/football-bg.png');
+            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('images/football-bg.png');
             background-size: 100% auto; 
-            background-position: center top 50px; 
+            background-position: center top 0px; 
             background-attachment: fixed;
             background-repeat: no-repeat;
             overflow: hidden; 
@@ -24,20 +24,6 @@
             min-height: 100vh;
         }
 
-        .app-header {
-            width: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 10px 0;
-            display: flex;
-            justify-content: center;
-            border-bottom: 2px solid #69be28;
-            z-index: 50;
-        }
-
-        .agency-logo { width: 90px; height: auto; }
-
-        /* Container set to exactly 3x173 width and 3x170 height */
         .container { 
             position: relative; 
             width: 519px; 
@@ -45,7 +31,7 @@
             max-width: 92vw;
             height: auto;
             aspect-ratio: 519 / 510;
-            margin-top: 240px; 
+            margin-top: 180px; 
             background: transparent; 
             border: 4px solid #69be28; 
             border-radius: 12px; 
@@ -74,7 +60,6 @@
             overflow: hidden;
         }
 
-        /* Icons fill the cell perfectly */
         .grid-cell img { 
             width: 100%; 
             height: 100%; 
@@ -121,7 +106,71 @@
             letter-spacing: 2px;
         }
 
-        #game-over-section, #claim-section { 
+        /* NEW: Custom Win Modal Styles */
+        #win-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(8px);
+            z-index: 200;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: #111;
+            border: 3px solid #69be28;
+            border-radius: 24px;
+            padding: 40px 30px;
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 0 60px rgba(105, 190, 40, 0.4);
+            animation: modalPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes modalPop {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-title {
+            color: #69be28;
+            font-size: 38px;
+            font-weight: 900;
+            font-style: italic;
+            margin: 0 0 10px 0;
+            text-transform: uppercase;
+        }
+
+        .prize-text {
+            font-size: 24px;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 25px;
+            line-height: 1.2;
+        }
+
+        .claim-btn {
+            background: #fff;
+            color: #000;
+            padding: 18px 30px;
+            border-radius: 12px;
+            font-weight: 900;
+            text-decoration: none;
+            text-transform: uppercase;
+            display: inline-block;
+            font-size: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: transform 0.2s ease;
+        }
+
+        .claim-btn:active { transform: scale(0.95); }
+
+        /* Game Over Section */
+        #game-over-section { 
             display: none; 
             position: absolute; 
             top: 50%; 
@@ -132,34 +181,15 @@
             z-index: 100; 
         }
 
-        .btn {
-            background: #ffffff;
-            color: #000;
-            padding: 20px 45px;
-            border-radius: 12px;
-            font-weight: 900;
-            text-decoration: none;
-            text-transform: uppercase;
-            display: inline-block;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.9);
-            font-size: 18px;
-            border: 2px solid #69be28;
-            cursor: pointer;
-        }
-
-        .btn-retry {
-            background: #222;
-            color: #fff;
-            border-color: #444;
+        .limit-text {
+            font-size: 14px;
+            color: #aaa;
             margin-top: 15px;
+            font-style: italic;
         }
     </style>
 </head>
 <body scroll="no">
-
-    <div class="app-header">
-        <img src="images/logo.png" alt="ScreenXcel" class="agency-logo">
-    </div>
 
     <div class="container">
         <div id="prize-grid"></div>
@@ -171,25 +201,34 @@
         <div class="attempts-text" id="attempts-display">Turns Left: 3</div>
     </div>
 
-    <div id="claim-section">
-        <h2 style="font-style: italic; font-weight: 900; margin-bottom: 20px; text-shadow: 0 0 20px #69be28; font-size: 32px;">TOUCHDOWN!</h2>
-        <a href="https://ig.me/m/screenxcel?text=I%20FOUND%20ALL%203%20FOOTBALLS!" class="btn">
-            Claim Your Reward
-        </a>
+    <!-- WIN PROMPT MODAL -->
+    <div id="win-modal">
+        <div class="modal-content">
+            <h2 class="modal-title">WINNER!</h2>
+            <p class="prize-text">YOU UNLOCKED<br><span style="color:#69be28; font-size: 32px;">20% OFF WINGS</span></p>
+            <a href="https://ig.me/m/screenxcel?text=I%20FOUND%20ALL%203%20FOOTBALLS!" class="claim-btn">
+                CLAIM ON INSTAGRAM
+            </a>
+            <p class="limit-text">Limit: One prize per hour.</p>
+        </div>
     </div>
 
     <div id="game-over-section">
-        <h2 style="font-style: italic; font-weight: 900; margin-bottom: 20px; color: #ff4444; font-size: 32px;">TURNOVER!</h2>
-        <div class="btn btn-retry" onclick="location.reload()">Try Again</div>
+        <h2 style="font-style: italic; font-weight: 900; margin-bottom: 20px; color: #ff4444; font-size: 32px; text-transform: uppercase;">Turnover!</h2>
+        <p class="limit-text" style="color:#fff; font-size: 18px;">Try again in one hour!</p>
     </div>
 
     <script>
         const canvas = document.getElementById('scratch-canvas');
         const ctx = canvas.getContext('2d');
-        const claimSection = document.getElementById('claim-section');
+        const winModal = document.getElementById('win-modal');
         const gameOverSection = document.getElementById('game-over-section');
         const attemptsDisplay = document.getElementById('attempts-display');
         const prizeGrid = document.getElementById('prize-grid');
+        const statusBar = document.getElementById('status-bar');
+
+        const STORAGE_KEY = 'screenxcel_football_session';
+        const COOLDOWN_MS = 60 * 60 * 1000; // 1 Hour
 
         const canvasW = 519; 
         const canvasH = 510;
@@ -213,6 +252,33 @@
                     h: cellH
                 });
             }
+        }
+
+        function checkPreviousPlay() {
+            const rawData = localStorage.getItem(STORAGE_KEY);
+            if (rawData) {
+                try {
+                    const session = JSON.parse(rawData);
+                    const timePassed = Date.now() - session.timestamp;
+                    
+                    if (timePassed < COOLDOWN_MS) {
+                        isGameOver = true;
+                        canvas.style.display = 'none';
+                        statusBar.style.display = 'none';
+                        if (session.status === 'win') {
+                            winModal.style.display = 'flex';
+                        } else {
+                            gameOverSection.style.display = 'block';
+                        }
+                        return true;
+                    } else {
+                        localStorage.removeItem(STORAGE_KEY);
+                    }
+                } catch (e) {
+                    localStorage.removeItem(STORAGE_KEY);
+                }
+            }
+            return false;
         }
 
         function setupPrizes() {
@@ -245,11 +311,10 @@
             });
         }
 
-        // Updated Workflow: Drawing a single tab 9 times for perfect alignment
         const cover = new Image();
         cover.src = 'images/football-cover.png'; 
         cover.onload = () => { 
-            // Draw the tab image in each of the 9 calculated zones
+            if (isGameOver) return;
             zones.forEach(zone => {
                 ctx.drawImage(cover, zone.x, zone.y, zone.w, zone.h);
             });
@@ -300,24 +365,30 @@
         function checkGameState() {
             if (winsFound === 3) {
                 isGameOver = true;
+                const sessionData = { status: 'win', timestamp: Date.now() };
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(sessionData));
                 setTimeout(() => {
                     canvas.style.opacity = '0';
                     canvas.style.pointerEvents = 'none';
                     canvas.style.transition = 'opacity 0.6s ease';
-                    document.getElementById('status-bar').style.display = 'none';
-                    claimSection.style.display = 'block';
+                    statusBar.style.display = 'none';
+                    winModal.style.display = 'flex';
                 }, 400);
             } else if (attemptsLeft === 0) {
                 isGameOver = true;
+                const sessionData = { status: 'lose', timestamp: Date.now() };
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(sessionData));
                 setTimeout(() => {
                     canvas.style.opacity = '0.3';
-                    document.getElementById('status-bar').style.display = 'none';
+                    statusBar.style.display = 'none';
                     gameOverSection.style.display = 'block';
                 }, 400);
             }
         }
 
-        setupPrizes();
+        if (!checkPreviousPlay()) {
+            setupPrizes();
+        }
 
         canvas.addEventListener('touchstart', (e) => { e.preventDefault(); handleInteraction(e); }, { passive: false });
         canvas.addEventListener('mousedown', (e) => { handleInteraction(e); });
