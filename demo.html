@@ -38,12 +38,12 @@
 
         .agency-logo { width: 90px; height: auto; }
 
-        /* Adjusted margin-top to account for the scaled-down background image */
+        /* Moved the grid up by reducing margin-top from 240px to 170px */
         .container { 
             position: relative; 
             width: 310px; 
             height: 310px; 
-            margin-top: 240px; /* Slightly adjusted to sit perfectly below the "Football Fever" text */
+            margin-top: 170px; /* Pushed up to clear the bottom and sit better under title */
             background: transparent; 
             border: 4px solid #69be28; 
             border-radius: 20px; 
@@ -68,13 +68,13 @@
             align-items: center;
             justify-content: center;
             border: 1px solid rgba(105, 190, 40, 0.05);
-            padding: 0; 
+            padding: 8px; /* Added padding to ensure icons don't bleed out of tab area */
         }
 
         .grid-cell img { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover; /* Ensures icons fill the square exactly like the tabs */
+            width: 85%; /* Sized to match the visual area of the silver tabs */
+            height: 85%; 
+            object-fit: contain; 
             filter: drop-shadow(0 0 10px rgba(0,0,0,0.8));
         }
 
