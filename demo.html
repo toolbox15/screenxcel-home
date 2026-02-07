@@ -24,11 +24,11 @@
             min-height: 100vh;
         }
 
-        /* Decorative football icon positioned below background text */
+        /* Decorative football icon positioned below background text - Moved down by 10vh */
         .deco-football {
             width: 70px;
             height: auto;
-            margin-top: 155px; /* Adjusted to sit right under "MATCH 3 TO WIN" */
+            margin-top: calc(155px + 10vh); 
             margin-bottom: 10px;
             filter: drop-shadow(0 0 15px rgba(105, 190, 40, 0.6));
             z-index: 20;
@@ -47,7 +47,6 @@
             max-width: 92vw;
             height: auto;
             aspect-ratio: 519 / 510;
-            /* Margin removed here because .deco-football handles the vertical push */
             margin-top: 0; 
             background: transparent; 
             border: 4px solid #69be28; 
