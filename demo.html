@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>ScreenXcel | Football Fever Demo</title>
     
-    <!-- Preload critical assets to improve loading speed on GitHub/Mobile -->
-    <link rel="preload" as="image" href="images/football-bg.png">
-    <link rel="preload" as="image" href="images/football-cover.png">
-    <link rel="preload" as="image" href="images/football.png">
+    <!-- Preload critical assets with cache-busting versioning -->
+    <link rel="preload" as="image" href="images/football-bg.png?v=1.1">
+    <link rel="preload" as="image" href="images/football-cover.png?v=1.1">
+    <link rel="preload" as="image" href="images/football.png?v=1.1">
+    <link rel="preload" as="image" href="images/qrcode.png?v=1.1">
     
     <style>
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -16,9 +17,9 @@
         body { 
             margin: 0; padding: 0; 
             background-color: #050505;
-            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('images/football-bg.png');
+            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('images/football-bg.png?v=1.1');
             background-size: 100% auto; 
-            background-position: center top 28%;
+            background-position: center top 18%; 
             background-attachment: fixed;
             background-repeat: no-repeat;
             overflow: hidden; 
@@ -98,7 +99,6 @@
             z-index: 10; 
             cursor: pointer; 
             touch-action: none; 
-            /* Start with opacity 0 to prevent a blank canvas flickering while image loads */
             opacity: 1; 
             transition: opacity 0.3s ease;
         }
@@ -139,7 +139,7 @@
             background: #111;
             border: 3px solid #69be28;
             border-radius: 24px;
-            padding: 40px 30px;
+            padding: 30px 25px;
             text-align: center;
             max-width: 400px;
             width: 100%;
@@ -162,25 +162,50 @@
         }
 
         .prize-text {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 800;
             color: #fff;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             line-height: 1.2;
         }
 
         .claim-btn {
             background: #fff;
             color: #000;
-            padding: 18px 30px;
+            padding: 16px 25px;
             border-radius: 12px;
             font-weight: 900;
             text-decoration: none;
             text-transform: uppercase;
             display: inline-block;
-            font-size: 16px;
+            font-size: 14px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             transition: transform 0.2s ease;
+            margin-bottom: 20px;
+        }
+
+        .qr-section {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(105, 190, 40, 0.3);
+        }
+
+        .qr-code {
+            width: 100px;
+            height: 100px;
+            background: white;
+            padding: 5px;
+            border-radius: 8px;
+            margin: 0 auto 8px;
+            display: block;
+        }
+
+        .qr-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #69be28;
+            font-weight: 700;
         }
 
         #game-over-section { 
@@ -192,6 +217,10 @@
             text-align: center; 
             width: 100%; 
             z-index: 100; 
+            background: rgba(0,0,0,0.9);
+            padding: 40px 20px;
+            border: 2px solid #ff4444;
+            border-radius: 20px;
         }
 
         .limit-text {
@@ -204,8 +233,7 @@
 </head>
 <body scroll="no">
 
-    <!-- Decoration image to sit below background text -->
-    <img src="images/football.png" alt="" class="deco-football">
+    <img src="images/football.png?v=1.1" alt="" class="deco-football">
 
     <div class="container">
         <div id="prize-grid"></div>
@@ -216,20 +244,32 @@
         <div id="instruction" class="instruction-pill">Match 3 To Win</div>
     </div>
 
+    <!-- WIN PROMPT MODAL -->
     <div id="win-modal">
         <div class="modal-content">
             <h2 class="modal-title">WINNER!</h2>
-            <p class="prize-text">YOU UNLOCKED<br><span style="color:#69be28; font-size: 32px;">20% OFF WINGS</span></p>
+            <p class="prize-text">YOU UNLOCKED<br><span style="color:#69be28; font-size: 28px;">20% OFF WINGS</span></p>
             <a href="https://ig.me/m/screenxcel?text=I%20FOUND%20ALL%203%20FOOTBALLS!" class="claim-btn">
                 CLAIM ON INSTAGRAM
             </a>
+            
+            <div class="qr-section">
+                <img src="images/qrcode.png?v=1.1" alt="Scan to Play" class="qr-code">
+                <div class="qr-label">Scan to Share the Fever</div>
+            </div>
+
             <p class="limit-text">Limit: One prize per hour.</p>
         </div>
     </div>
 
     <div id="game-over-section">
         <h2 style="font-style: italic; font-weight: 900; margin-bottom: 20px; color: #ff4444; font-size: 32px; text-transform: uppercase;">Turnover!</h2>
-        <p class="limit-text" style="color:#fff; font-size: 18px;">Try again in one hour!</p>
+        <p style="color:#fff; font-size: 18px; margin-bottom: 20px;">Try again in one hour!</p>
+        
+        <div class="qr-section">
+            <img src="images/qrcode.png?v=1.1" alt="Scan to Play" class="qr-code">
+            <div class="qr-label">Scan to Challenge a Friend</div>
+        </div>
     </div>
 
     <script>
@@ -299,18 +339,17 @@
         function setupPrizes() {
             prizeGrid.innerHTML = '';
             const items = [
-                { type: 'win', src: 'images/icon-win.png' },
-                { type: 'win', src: 'images/icon-win.png' },
-                { type: 'win', src: 'images/icon-win.png' },
-                { type: 'lose', src: 'images/icon-lose.png' },
-                { type: 'lose', src: 'images/icon-lose.png' },
-                { type: 'lose', src: 'images/icon-lose.png' },
-                { type: 'lose', src: 'images/icon-lose.png' },
-                { type: 'lose', src: 'images/icon-lose.png' },
-                { type: 'lose', src: 'images/icon-lose.png' }
+                { type: 'win', src: 'images/icon-win.png?v=1.1' },
+                { type: 'win', src: 'images/icon-win.png?v=1.1' },
+                { type: 'win', src: 'images/icon-win.png?v=1.1' },
+                { type: 'lose', src: 'images/icon-lose.png?v=1.1' },
+                { type: 'lose', src: 'images/icon-lose.png?v=1.1' },
+                { type: 'lose', src: 'images/icon-lose.png?v=1.1' },
+                { type: 'lose', src: 'images/icon-lose.png?v=1.1' },
+                { type: 'lose', src: 'images/icon-lose.png?v=1.1' },
+                { type: 'lose', src: 'images/icon-lose.png?v=1.1' }
             ];
             
-            // Fisher-Yates shuffle
             for (let i = items.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [items[i], items[j]] = [items[j], items[i]];
@@ -320,7 +359,7 @@
                 prizeData[i] = item.type;
                 const cell = document.createElement('div');
                 cell.className = 'grid-cell';
-                const img = new Image(); // Use Image constructor for better performance tracking
+                const img = new Image();
                 img.src = item.src;
                 cell.appendChild(img);
                 prizeGrid.appendChild(cell);
@@ -329,7 +368,7 @@
 
         function initCanvas() {
             const cover = new Image();
-            cover.src = 'images/football-cover.png'; 
+            cover.src = 'images/football-cover.png?v=1.1'; 
             cover.onload = () => { 
                 if (isGameOver) return;
                 zones.forEach(zone => {
