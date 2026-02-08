@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>ScreenXcel | Football Fever Demo</title>
+    
+    <!-- Preload critical assets to improve loading speed on GitHub/Mobile -->
+    <link rel="preload" as="image" href="images/football-bg.png">
+    <link rel="preload" as="image" href="images/football-cover.png">
+    <link rel="preload" as="image" href="images/football.png">
+    
     <style>
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         
@@ -12,7 +18,7 @@
             background-color: #050505;
             background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('images/football-bg.png');
             background-size: 100% auto; 
-            background-position: center top 28%; /* Moved background down by an additional 10% (from 18% to 28%) */
+            background-position: center top 28%;
             background-attachment: fixed;
             background-repeat: no-repeat;
             overflow: hidden; 
@@ -24,7 +30,7 @@
             min-height: 100vh;
         }
 
-        /* Decorative football icon positioned below background text - Moved up by 4% (20vh to 16vh) */
+        /* Decorative football icon positioned below background text */
         .deco-football {
             width: 70px;
             height: auto;
@@ -92,6 +98,9 @@
             z-index: 10; 
             cursor: pointer; 
             touch-action: none; 
+            /* Start with opacity 0 to prevent a blank canvas flickering while image loads */
+            opacity: 1; 
+            transition: opacity 0.3s ease;
         }
 
         .status-bar {
@@ -269,7 +278,8 @@
                         isGameOver = true;
                         canvas.style.display = 'none';
                         statusBar.style.display = 'none';
-                        document.querySelector('.deco-football').style.display = 'none';
+                        const deco = document.querySelector('.deco-football');
+                        if (deco) deco.style.display = 'none';
                         if (session.status === 'win') {
                             winModal.style.display = 'flex';
                         } else {
@@ -300,6 +310,7 @@
                 { type: 'lose', src: 'images/icon-lose.png' }
             ];
             
+            // Fisher-Yates shuffle
             for (let i = items.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [items[i], items[j]] = [items[j], items[i]];
@@ -309,21 +320,23 @@
                 prizeData[i] = item.type;
                 const cell = document.createElement('div');
                 cell.className = 'grid-cell';
-                const img = document.createElement('img');
+                const img = new Image(); // Use Image constructor for better performance tracking
                 img.src = item.src;
                 cell.appendChild(img);
                 prizeGrid.appendChild(cell);
             });
         }
 
-        const cover = new Image();
-        cover.src = 'images/football-cover.png'; 
-        cover.onload = () => { 
-            if (isGameOver) return;
-            zones.forEach(zone => {
-                ctx.drawImage(cover, zone.x, zone.y, zone.w, zone.h);
-            });
-        };
+        function initCanvas() {
+            const cover = new Image();
+            cover.src = 'images/football-cover.png'; 
+            cover.onload = () => { 
+                if (isGameOver) return;
+                zones.forEach(zone => {
+                    ctx.drawImage(cover, zone.x, zone.y, zone.w, zone.h);
+                });
+            };
+        }
 
         function getCellIndex(x, y) {
             const col = Math.floor(x / cellW);
@@ -374,9 +387,9 @@
                 setTimeout(() => {
                     canvas.style.opacity = '0';
                     canvas.style.pointerEvents = 'none';
-                    canvas.style.transition = 'opacity 0.6s ease';
                     statusBar.style.display = 'none';
-                    document.querySelector('.deco-football').style.display = 'none';
+                    const deco = document.querySelector('.deco-football');
+                    if (deco) deco.style.display = 'none';
                     winModal.style.display = 'flex';
                 }, 400);
             } else if (attemptsLeft === 0) {
@@ -386,14 +399,18 @@
                 setTimeout(() => {
                     canvas.style.opacity = '0.3';
                     statusBar.style.display = 'none';
-                    document.querySelector('.deco-football').style.display = 'none';
+                    const deco = document.querySelector('.deco-football');
+                    if (deco) deco.style.display = 'none';
                     gameOverSection.style.display = 'block';
                 }, 400);
             }
         }
 
-        if (!checkPreviousPlay()) {
+        // Initialize everything
+        const alreadyPlayed = checkPreviousPlay();
+        if (!alreadyPlayed) {
             setupPrizes();
+            initCanvas();
         }
 
         canvas.addEventListener('touchstart', (e) => { e.preventDefault(); handleInteraction(e); }, { passive: false });
